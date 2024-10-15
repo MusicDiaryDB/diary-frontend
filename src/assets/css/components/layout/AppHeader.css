@@ -3,3 +3,7 @@ header {
     flex-direction: row;
     justify-content: space-around;
 }
+
+.loginButton {
+    text-decoration: none;
+}

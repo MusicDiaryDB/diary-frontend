@@ -4,14 +4,17 @@ import "../assets/css/pages/Home.css"
 
 function Home(){
 
-    return(
+    const isAdmin = sessionStorage.getItem("isAdmin") === "true"
 
+    return(
         <div className="homePage">
+
+            {isAdmin && <p>isAdmin</p>}
             <p>What are we jamming to this week?</p>
             <div className="diaryEntiresSection">
-                <TextField className="diaryEntryField" id="standard-basic" label="Enter song" variant="standard" />
-                <TextField className="diaryEntryField" id="standard-basic" label="Enter song" variant="standard" />
-                <TextField className="diaryEntryField" id="standard-basic" label="Enter song" variant="standard" />
+                <TextField id="standard-basic" label="Enter song" variant="standard" />
+                <TextField id="standard-basic" label="Enter song" variant="standard" />
+                <TextField id="standard-basic" label="Enter song" variant="standard" />
             </div>
 
         </div>

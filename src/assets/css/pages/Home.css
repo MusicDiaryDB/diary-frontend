@@ -1,22 +1,37 @@
-.diaryEntriesSection{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 80rem;
-    height: 5rem;
-    border: 2rem solid black;
-    background-color: aqua;
-    padding: 1rem;
-}
+/*.diaryEntriesSection{*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    justify-content: space-between;*/
+/*    width: 80rem;*/
+/*    height: 5rem;*/
+/*    !*border: 2rem solid black;*!*/
+/*    background-color: aqua;*/
+/*    padding: 1rem;*/
+/*    gap: 1rem;*/
+/*}*/
+
+/*.homePage{*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    height: 80vh;*/
+/*}*/
+
+/*.diaryEntryField{*/
+/*    padding: 5rem;*/
+/*}*/
 
 .homePage{
+    height: 90vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
-    height: 80vh;
 }
 
-.diaryEntryField{
-    padding: 5rem;
+/* todo why is this not minding me*/
+.diaryEntriesSection{
+    display: flex;
+    flex-direction: column;
 }

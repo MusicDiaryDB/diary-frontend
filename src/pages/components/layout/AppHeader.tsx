@@ -7,7 +7,9 @@ function AppHeader(){
 
         <header style={{ minWidth:'1200px'}}>
            <p>MusicDiary</p>
-            <p>Login</p> 
+            <Link to="/">
+                <p>Login</p>
+            </Link>
         </header>
     )
 }
