@@ -1,9 +1,9 @@
-import {apiClient} from "./axios"
+import {geniusClient} from "./axios"
 
 export const getRandomSong = async() => {
     try {
-        const response = await apiClient.post("/auth/jwt/create", { username: uid, password: pass })
-        sessionStorage.setItem("token", response.data.access)
+        const response = await geniusClient.get("/songs/43431")
+        console.log(response.data)
         return response.data
     } catch (err) {
         console.error("Error logging in", err)

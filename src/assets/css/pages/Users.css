@@ -1,0 +1,16 @@
+.addUsers{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 80vw;
+    height: 5rem;
+    /*background-color: aqua;*/
+    padding: 1rem;
+}
+
+.manageUsersPage{
+    display: flex;
+    flex-direction: row-reverse;
+    padding-right: 20vw;
+    background-color: aqua;
+}

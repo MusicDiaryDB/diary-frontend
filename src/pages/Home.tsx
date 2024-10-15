@@ -1,15 +1,21 @@
 import {Link, useLocation} from 'react-router-dom';
-import "../assets/css/components/layout/AppHeader.css"
 import { TextField } from '@mui/material';
+import "../assets/css/pages/Home.css"
 
-function AppHeader(){
+function Home(){
 
     return(
 
         <div className="homePage">
-            <TextField id="standard-basic" label="Attention by Charlie Puth" variant="standard" />
+            <p>What are we jamming to this week?</p>
+            <div className="diaryEntiresSection">
+                <TextField className="diaryEntryField" id="standard-basic" label="Enter song" variant="standard" />
+                <TextField className="diaryEntryField" id="standard-basic" label="Enter song" variant="standard" />
+                <TextField className="diaryEntryField" id="standard-basic" label="Enter song" variant="standard" />
+            </div>
+
         </div>
     )
 }
-export default AppHeader;
+export default Home;
 

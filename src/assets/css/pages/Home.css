@@ -1,5 +1,22 @@
-.homePage{
+.diaryEntriesSection{
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
+    width: 80rem;
+    height: 5rem;
+    border: 2rem solid black;
+    background-color: aqua;
+    padding: 1rem;
+}
+
+.homePage{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.diaryEntryField{
+    padding: 5rem;
 }

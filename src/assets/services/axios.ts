@@ -3,8 +3,8 @@ import React from "react"
 import { Navigate } from "react-router-dom"
 
 
-export const apiClient = axios.create({
-    baseURL: process.env.REACT_APP_GENIUS_BASEURLgit ,
+export const geniusClient = axios.create({
+    baseURL: process.env.REACT_APP_GENIUS_BASEURL,
     timeout: 10000,
     headers:
         {
@@ -12,7 +12,7 @@ export const apiClient = axios.create({
         }
 })
 
-apiClient.interceptors.request.use(
+geniusClient.interceptors.request.use(
     function (config) {
         const token = sessionStorage.getItem("token")
         if (token) {
