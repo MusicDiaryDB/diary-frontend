@@ -1,27 +1,3 @@
-/*.diaryEntriesSection{*/
-/*    display: flex;*/
-/*    flex-direction: row;*/
-/*    justify-content: space-between;*/
-/*    width: 80rem;*/
-/*    height: 5rem;*/
-/*    !*border: 2rem solid black;*!*/
-/*    background-color: aqua;*/
-/*    padding: 1rem;*/
-/*    gap: 1rem;*/
-/*}*/
-
-/*.homePage{*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    justify-content: center;*/
-/*    align-items: center;*/
-/*    height: 80vh;*/
-/*}*/
-
-/*.diaryEntryField{*/
-/*    padding: 5rem;*/
-/*}*/
-
 .homePage{
     height: 90vh;
     display: flex;
@@ -30,8 +6,9 @@
     align-items: center;
 }
 
-/* todo why is this not minding me*/
 .diaryEntriesSection{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 4rem;
 }
