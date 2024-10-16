@@ -1,0 +1,23 @@
+.viewEntries{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.entryListing{
+    display: flex;
+    flex-direction: column;
+}
+
+.entryTop{
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+}
+
+
+.entryBottom{
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+}

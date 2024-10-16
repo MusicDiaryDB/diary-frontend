@@ -1,14 +1,39 @@
 .homePage{
-    height: 90vh;
+    height: 85vh;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
 }
 
-.diaryEntriesSection{
+
+.diaryEntriesSection {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    gap: 2rem;
+}
+
+.enteredSongs {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    gap: 4rem;
+}
+
+.entryDetails {
+    display: flex;
+    flex-direction: row;
+    gap: 10rem;
+    padding-bottom: 2rem;
+}
+
+.entryOptions {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.addSong {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
 }

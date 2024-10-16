@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Users from "./pages/Users"
 import AppFooter from "./pages/components/layout/AppFooter";
 import Login from "./pages/Login";
+import DiaryEntries from "./pages/DiaryEntries";
 
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
       <Router>
         <AppHeader />
         <Routes>
-          {/*<Route path="/home" element={<Categories />} />*/}
+          <Route path="/entries" element={<DiaryEntries />} />
           <Route path="/users" element={<Users/>} />
           <Route path="/home" element={<Home/>} />
           <Route path="/" element={<Login/>} />

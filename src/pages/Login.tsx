@@ -27,8 +27,10 @@ function Login(){
                     onClick={() =>{
                         console.log(username)
                         sessionStorage.setItem("username",username)
-                        sessionStorage.setItem("isLoggedIn","true")
-                        sessionStorage.setItem("isAdmin","false")
+                        // @ts-ignore
+                        sessionStorage.setItem("isLoggedIn",true)
+                        // @ts-ignore
+                        sessionStorage.setItem("isAdmin",false)
                         navigate("/home")
                     }}
             >
@@ -36,8 +38,10 @@ function Login(){
 
             <Button className="loginField"
                     onClick={() =>{
-                        sessionStorage.setItem("isLoggedIn","true")
-                        sessionStorage.setItem("isAdmin","true")
+                        // @ts-ignore
+                        sessionStorage.setItem("isLoggedIn",true)
+                        // @ts-ignore
+                        sessionStorage.setItem("isAdmin",true)
                         navigate("/home")
                     }}
             >

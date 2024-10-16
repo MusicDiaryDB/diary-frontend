@@ -1,15 +1,20 @@
 import "../../../assets/css/components/layout/AppHeader.css"
-import {Link, useLocation} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 function AppHeader(){
 
-
+const navigate = useNavigate()
     return(
 
         <header style={{ minWidth:'1200px'}}>
            <p>MusicDiary</p>
-            <Link to="/">
-                <p>Login</p>
-            </Link>
+
+                <p onClick={
+                    () => {
+                        sessionStorage.setItem("username","")
+                        navigate("/")
+
+                    }
+                }>Logout</p>
         </header>
     )
 }
