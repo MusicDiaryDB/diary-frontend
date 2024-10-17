@@ -2,11 +2,16 @@ import {Link, useLocation, useNavigate} from 'react-router-dom';
 import {Button, TextField } from '@mui/material';
 import "../assets/css/pages/Login.css"
 import { useState } from 'react';
+import { getUserById } from '../assets/services/diary';
 
 
 function Login(){
 
     const [username, setUsername] = useState("");
+
+    getUserById().then((user) => {
+        console.log(user)
+    })
 
     const navigate = useNavigate();
     return(

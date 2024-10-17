@@ -30,7 +30,7 @@ const navigate = useNavigate()
     return(
         <div className="homePage">
 
-            <p>What are we jamming to this week?</p>
+            <h1>What are we jamming to this week?</h1>
             <div>
                 <div>
                     {entries.map((entry) => (

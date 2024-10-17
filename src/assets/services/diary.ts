@@ -1,9 +1,13 @@
 import { Song } from "../models/entry";
+import { diaryClient } from "./axios";
 
-export function getEntrySongs(entryId:number): Song[]   {
-    return [
-        {songId:1, releaseDate: "some date", name: "A by B", artist: "Jake", album: "Album1"},
-        {songId:1, releaseDate: "some date", name: "A by B", artist: "Jake", album: "Album1"},
-        {songId:1, releaseDate: "some date", name: "A by B", artist: "Jake", album: "Album1"},
-    ]
+export const getUserById = async() =>  {
+    try {
+        const response = await diaryClient.get("/user/1")
+        console.log(response.data)
+        return response.data
+    } catch (err) {
+        console.error("Error getting user", err)
+        throw err
+    }
 }

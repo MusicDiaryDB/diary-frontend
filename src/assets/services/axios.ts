@@ -26,23 +26,11 @@ geniusClient.interceptors.request.use(
 )
 
 export const diaryClient = axios.create({
-    baseURL: process.env.REACT_APP_DIARY_BASEURL,
+    baseURL: "http://localhost:5000",
     timeout: 10000,
     headers:
         {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "access-control-allow-origin" : "*"
         }
 })
-
-// diaryClient.interceptors.request.use(
-//     function (config) {
-//         // const token = sessionStorage.getItem("token")
-//         // if (token) {
-//         //     config.headers.Authorization = `Bearer ${process.env.REACT_APP_GENIUS_TOKEN}`
-//         // }
-//         return config
-//     },
-//     function (error) {
-//         return Promise.reject(error)
-//     }
-// )

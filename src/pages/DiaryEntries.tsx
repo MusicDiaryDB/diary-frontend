@@ -1,8 +1,7 @@
 import {Link} from 'react-router-dom';
 import {Button} from '@mui/material';
 import "../assets/css/pages/DiaryEntries.css";
-import { Entry } from '../assets/models/entry';
-import { getEntrySongs } from '../assets/services/diary';
+import { Entry, Song } from '../assets/models/entry';
 import { useState } from 'react';
 
 function DiaryEntries(){
@@ -34,16 +33,16 @@ function DiaryEntries(){
                     </div>
 
                     <div className="entryBottom">
-                        {getEntrySongs(entry.entryId).map(
-                            (song, index) => (
-                                <div key={index}>
-                                    <p>{song.name}</p>
-                                    <div className="songDetails" style={{display:hideSongDetailsDisplay}}>
-                                        <p>Author: {song.artist}</p>
-                                        <p>Album: {song.album}</p>
-                                    </div>
-                                </div>
-                            ))}
+                        {/*{getEntrySongs(entry.entryId).map(*/}
+                        {/*    (song: Song, index: number) => (*/}
+                        {/*        <div key={index}>*/}
+                        {/*            <p>{song.name}</p>*/}
+                        {/*            <div className="songDetails" style={{display:hideSongDetailsDisplay}}>*/}
+                        {/*                <p>Author: {song.artist}</p>*/}
+                        {/*                <p>Album: {song.album}</p>*/}
+                        {/*            </div>*/}
+                        {/*        </div>*/}
+                        {/*    ))}*/}
                         <p style={{
                             fontWeight: "bold",
                             textDecoration:"underline",
