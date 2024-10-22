@@ -1,17 +1,14 @@
-import {Link, useLocation, useNavigate} from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import {Button, TextField } from '@mui/material';
 import "../assets/css/pages/Login.css"
 import { useState } from 'react';
-import { getUserById } from '../assets/services/diary';
+import {createUser, getUserByUsername} from '../assets/services/diary';
 
 
 function Login(){
 
     const [username, setUsername] = useState("");
-
-    getUserById().then((user) => {
-        console.log(user)
-    })
+    const [loginButtonText, setLoginButtonText] = useState("Login");
 
     const navigate = useNavigate();
     return(
@@ -29,17 +26,41 @@ function Login(){
 
             <Button className="loginField"
                     variant="contained"
+                    disabled={loginButtonText !== "Login"}
                     onClick={() =>{
                         console.log(username)
-                        sessionStorage.setItem("username",username)
-                        // @ts-ignore
-                        sessionStorage.setItem("isLoggedIn",true)
-                        // @ts-ignore
-                        sessionStorage.setItem("isAdmin",false)
-                        navigate("/home")
+
+                        getUserByUsername(username).then((res) => {
+                            console.log("already exists")
+                                sessionStorage.setItem("username",res.Username)
+                            sessionStorage.setItem("user_id",res.UserId)
+                                // @ts-ignore
+                                sessionStorage.setItem("isLoggedIn",true)
+                                // @ts-ignore
+                                sessionStorage.setItem("isAdmin",false)
+                                navigate("/home");
+                        }).catch(async error => {
+                            setLoginButtonText("Creating User...");
+                            console.log("creating user")
+                            //Wait to see User being created
+                            await new Promise(r => setTimeout(r, 1000));
+                            createUser(username, "public").then(res => {
+                                if (res.status === 201) {
+                                    sessionStorage.setItem("username", username)
+                                    // @ts-ignore
+                                    sessionStorage.setItem("isLoggedIn", true)
+                                    // @ts-ignore
+                                    sessionStorage.setItem("isAdmin", false)
+                                    navigate("/home");
+                                }
+                            })
+                            setLoginButtonText("Login");
+
+                        })
+
                     }}
             >
-                Login</Button>
+                {loginButtonText}</Button>
 
             <Button className="loginField"
                     onClick={() =>{
@@ -47,7 +68,7 @@ function Login(){
                         sessionStorage.setItem("isLoggedIn",true)
                         // @ts-ignore
                         sessionStorage.setItem("isAdmin",true)
-                        navigate("/home")
+                        navigate("/manage")
                     }}
             >
                 Login as Admin

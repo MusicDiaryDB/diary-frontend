@@ -1,0 +1,39 @@
+.managementPage{
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+.diaryEntriesSection {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    gap: 2rem;
+}
+
+.enteredSongs {
+    display: flex;
+    flex-direction: row;
+}
+
+.entryDetails {
+    display: flex;
+    flex-direction: row;
+    gap: 10rem;
+    padding-bottom: 2rem;
+}
+
+.entryOptions {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.addSong {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}

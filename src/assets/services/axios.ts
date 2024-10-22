@@ -1,6 +1,5 @@
 import axios from "axios"
 import React from "react"
-import { Navigate } from "react-router-dom"
 
 
 export const geniusClient = axios.create({
@@ -8,7 +7,9 @@ export const geniusClient = axios.create({
     timeout: 10000,
     headers:
         {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+"access-control-allow-origin" : "*"
+
         }
 })
 
@@ -30,7 +31,6 @@ export const diaryClient = axios.create({
     timeout: 10000,
     headers:
         {
-            "Content-Type": "application/json",
-            "access-control-allow-origin" : "*"
+            "Content-Type": "multipart/form-data",
         }
 })
