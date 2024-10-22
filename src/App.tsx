@@ -10,25 +10,36 @@ import AppFooter from "./pages/components/layout/AppFooter";
 import Login from "./pages/Login";
 import DiaryEntries from "./pages/DiaryEntries";
 import Management from "./pages/Management";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            retry: 3,
+            refetchOnWindowFocus: false,
+        },
+    },
+})
 
 function App() {
   return (
-      <Router>
-        <AppHeader />
-        <Routes>
-          <Route path="/entries" element={<DiaryEntries />} />
-          <Route path="/users" element={<Users/>} />
-          <Route path="/home" element={<Home/>} />
-          <Route path="/manage" element={<Management/>} />
+      <QueryClientProvider client={queryClient}>
+          <Router>
+              <AppHeader />
+              <Routes>
+                  <Route path="/entries" element={<DiaryEntries />} />
+                  <Route path="/users" element={<Users/>} />
+                  <Route path="/home" element={<Home/>} />
+                  <Route path="/manage" element={<Management/>} />
 
-          <Route path="/" element={<Login/>} />
-          <Route path="*" element={<div>Page Not Found</div>} />
-        </Routes>
+                  <Route path="/" element={<Login/>} />
+                  <Route path="*" element={<div>Page Not Found</div>} />
+              </Routes>
 
-        <AppFooter />
+              <AppFooter />
 
-      </Router>
+          </Router>
+      </QueryClientProvider>
   );
 }
 

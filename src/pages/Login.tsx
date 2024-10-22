@@ -2,7 +2,7 @@ import { useNavigate} from 'react-router-dom';
 import {Button, TextField } from '@mui/material';
 import "../assets/css/pages/Login.css"
 import { useState } from 'react';
-import {createUser, getUserByUsername} from '../assets/services/diary';
+import {createUser, getUserByUsername} from '../assets/services/diary/user';
 
 
 function Login(){

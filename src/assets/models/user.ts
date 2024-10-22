@@ -1,5 +1,5 @@
 export interface User {
-    userId: number;
-    username: string;
-    visibility: boolean;
+    UserID: number;
+    Username: string;
+    Visibility: string;
 }
