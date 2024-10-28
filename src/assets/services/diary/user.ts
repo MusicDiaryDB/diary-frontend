@@ -60,7 +60,13 @@ export const getUserByUsername = async(username:string) =>  {
 
 export const updateUser = async (userData : User) => {
     try {
-        const response = await diaryClient.put(`/user/${userData.UserID}`)
+        const form = new FormData()
+        form.append("userId",userData.UserID.toString())
+        form.append("username",userData.Username)
+        form.append("visibility",userData.Visibility)
+        console.log(form)
+
+        const response = await diaryClient.put(`/user/${userData.UserID}`,form)
         return response.status === 200
     }catch (err) {
         console.error("Error updating user",err)
