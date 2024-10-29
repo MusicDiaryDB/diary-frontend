@@ -73,3 +73,13 @@ export const updateUser = async (userData : User) => {
         throw err
     }
 }
+
+export const deleteUser = async (userId : number) => {
+    try {
+        const response = await diaryClient.delete(`/user/${userId.toString()}`)
+        return response.status === 200
+    }catch (err) {
+        console.error("Error updating user",err)
+        throw err
+    }
+}

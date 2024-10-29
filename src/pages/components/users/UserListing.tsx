@@ -1,11 +1,13 @@
 import {MenuItem, TextField} from "@mui/material";
 import "../../../assets/css/components/layout/AppHeader.css"
 import {useNavigate} from 'react-router-dom';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {User} from '../../../assets/models/user'
 import {faCheck, faPen, faTrash, faX} from "@fortawesome/free-solid-svg-icons";
-import {useRef, useState} from "react";
+import {useState} from "react";
 import {USER_VISIBILITY} from "../../../assets/constants";
-import {updateUser} from "../../../assets/services/diary/user";
+import {deleteUser, updateUser} from "../../../assets/services/diary/user";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // @ts-ignore
 function UserListing({user}) {
@@ -13,11 +15,26 @@ function UserListing({user}) {
     const [updateName, setUpdateName] = useState(false)
     const [nameVal, updateNameVal] = useState(user.Username)
 
-
     const [updateVisbility, setUpdateVisibility] = useState(false)
     const [visbilityVal, updateVisibilityVal] = useState(user.Visibility)
 
+    const queryClient = useQueryClient()
     const navigate = useNavigate()
+
+    const updateUserMutation = useMutation({
+        mutationFn: (user: User) => updateUser({
+                UserID: user.UserID,
+                Username: user.Username,
+                Visibility: user.Visibility
+            }
+        ),
+        onSuccess: () => queryClient.invalidateQueries({queryKey: ['allUsers']})
+    })
+
+    const deleteUserMutation = useMutation({
+        mutationFn: (userId: number) => deleteUser(userId),
+        onSuccess: () => queryClient.invalidateQueries({queryKey: ['allUsers']})
+    })
     return (
 
         <div className="userListing">
@@ -25,24 +42,23 @@ function UserListing({user}) {
                 <TextField
                     disabled={!updateName}
                     value={nameVal}
-                    onChange={(e)=>{
+                    onChange={(e) => {
                         updateNameVal(e.target.value)
                     }}
                 />
                 <div
-                    style={{display:"flex",flexDirection:"column"}}
+                    style={{display: "flex", flexDirection: "column"}}
                 >
                     <FontAwesomeIcon
                         icon={!updateName ? faPen : faCheck}
                         onClick={() => {
                             console.log(nameVal)
                             if (updateName) {
-                                updateUser({
-                                        UserID: user.UserID,
-                                        Username: nameVal,
-                                        Visibility: user.Visibility
-                                    }
-                                )
+                                updateUserMutation.mutate({
+                                    UserID: user.UserID,
+                                    Username: nameVal,
+                                    Visibility: user.Visibility
+                                })
                             }
                             setUpdateName(!updateName)
                         }}
@@ -62,7 +78,6 @@ function UserListing({user}) {
                 </div>
 
 
-
             </div>
 
             <div style={{display: "flex", flexDirection: "row", gap: "1rem"}}>
@@ -78,7 +93,7 @@ function UserListing({user}) {
                         <MenuItem
                             key={option.value}
                             value={option.value}
-                            onClick={()=>{
+                            onClick={() => {
                                 updateVisibilityVal(option.value)
                             }}>
                             {option.label}
@@ -94,12 +109,11 @@ function UserListing({user}) {
                         onClick={() => {
                             console.log(nameVal)
                             if (updateVisbility) {
-                                updateUser({
-                                        UserID: user.UserID,
-                                        Username: user.Username,
-                                        Visibility: visbilityVal
-                                    }
-                                )
+                                updateUserMutation.mutate({
+                                    UserID: user.UserID,
+                                    Username: user.Username,
+                                    Visibility: visbilityVal
+                                })
                             }
                             setUpdateVisibility(!updateVisbility)
                         }}
@@ -119,7 +133,13 @@ function UserListing({user}) {
                 </div>
             </div>
 
-            <FontAwesomeIcon icon={faTrash}/>
+            <FontAwesomeIcon
+                icon={faTrash}
+                onClick={() => {
+                    deleteUserMutation.mutate(user.UserID)
+                    queryClient.invalidateQueries({queryKey: ['allUsers']})
+                }}
+            />
         </div>
     )
 }
