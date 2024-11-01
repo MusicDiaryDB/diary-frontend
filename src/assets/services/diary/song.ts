@@ -37,7 +37,7 @@ export const addAlbum = async(albumName: string, artistId:string) =>  {
         form.append("name",albumName)
         form.append("artistId",artistId)
         const response = await diaryClient.post("/album", form)
-        return response.data.AlbumID
+        return {albumId:response.data.AlbumID,albumName:albumName,artistId:artistId}
     } catch (err) {
         console.error("Error adding artist", err)
         throw err
@@ -127,6 +127,20 @@ export const deleteUser = async (userId : number) => {
 }
 
 
+export const getAlbumByName = async(albumName:string) =>{
+    try{
+        const response = await diaryClient.get(`/album/${albumName}`)
+        return {
+            albumName: response.data.Name,
+            artistId: response.data.ArtistID,
+            albumId: response.data.AlbumID
+        }
+    }catch (err) {
+        console.error("Error getting artist by name", err)
+        // throw err
+    }
+}
+
 export const addNewSongFromGeniusSearch =  async(geniusSongId:number) =>{
     const geniusSongDetails = await getSongDetials(geniusSongId)
     try{
@@ -136,11 +150,13 @@ export const addNewSongFromGeniusSearch =  async(geniusSongId:number) =>{
             getArtistResponse = await addArtist(geniusSongDetails.artist)
         }
         try {
-            const addAlbumResponse = await addAlbum(geniusSongDetails.albumName, getArtistResponse?.artistId)
+            let getAlbumResponse = await getAlbumByName(geniusSongDetails.albumName)
 
-            //todo get album by name
+            if (!getAlbumResponse) {
+                getAlbumResponse = await addAlbum(geniusSongDetails.albumName, getArtistResponse?.artistId)
+            }
 
-            const addSongResponse = await addSong(geniusSongDetails.releaseDate,geniusSongDetails.title,addAlbumResponse)
+            const addSongResponse = await addSong(geniusSongDetails.releaseDate,geniusSongDetails.title,getAlbumResponse.albumId)
             return addSongResponse.data.status == 201
         }catch (err) {
 
