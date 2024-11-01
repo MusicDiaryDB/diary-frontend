@@ -155,8 +155,8 @@ export const addNewSongFromGeniusSearch =  async(geniusSongId:number) =>{
 
                 if (!getSongResponse){
                     getSongResponse = await addSong(geniusSongDetails.releaseDate,geniusSongDetails.title,getAlbumResponse.albumId)
+                    isSongMutated = true
                 }
-                isSongMutated = true
             }catch (err) {
                 console.error("Error adding song from search")
             }
