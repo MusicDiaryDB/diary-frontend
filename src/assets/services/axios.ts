@@ -1,31 +1,18 @@
 import axios from "axios"
-import React from "react"
 
+// GENIUS API CLIENT
 
 export const geniusClient = axios.create({
-    baseURL: process.env.REACT_APP_GENIUS_BASEURL,
+    baseURL: "https://genius-song-lyrics1.p.rapidapi.com/",
     timeout: 10000,
     headers:
         {
-            "Content-Type": "application/json",
-"access-control-allow-origin" : "*"
-
+            'x-rapidapi-key': '7df705bb7bmsh489ff2f2d034e17p154d36jsn14374f2eb023',
+            'x-rapidapi-host': 'genius-song-lyrics1.p.rapidapi.com'
         }
 })
 
-geniusClient.interceptors.request.use(
-    function (config) {
-        const token = sessionStorage.getItem("token")
-        if (token) {
-            config.headers.Authorization = `Bearer ${process.env.REACT_APP_GENIUS_TOKEN}`
-        }
-        return config
-    },
-    function (error) {
-        return Promise.reject(error)
-    }
-)
-
+//DIARY API CLIENT
 export const diaryClient = axios.create({
     baseURL: "http://localhost:5400",
     timeout: 10000,

@@ -1,4 +1,4 @@
-import {Link, useLocation} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {Button, MenuItem, TextField} from '@mui/material';
 import "../assets/css/pages/Users.css"
 import {faCheck, faPen, faTrash, faX} from '@fortawesome/free-solid-svg-icons';
@@ -32,6 +32,13 @@ function Users() {
     // @ts-ignore
     return (
         <div className="manageUsersPage">
+            <Link to="/manage">
+                <button>
+                    {"<-Back"}
+                </button>
+            </Link>
+
+
             <div className="addUser">
 
                 <h2>Add New User</h2>

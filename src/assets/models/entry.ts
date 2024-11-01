@@ -18,3 +18,17 @@ export interface Song{
     artist:string;
     album: string
 }
+
+export interface Album {
+    name: string;
+    artistId: string
+}
+
+export interface Artist {
+    name: string;
+}
+
+export interface PossibleSong{
+    geniusSongId: number;
+    fullTitle: string;
+}

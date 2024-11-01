@@ -16,8 +16,8 @@ function Management(){
         {
             tableName:"Songs & Albums",
             desc:"Manage songs here",
-            addNewRoute:"",
-            manageRoute:""
+            addNewRoute:"/songs_albums",
+            manageRoute:"/songs_albums"
         },
         {
             tableName:"Reviews",

@@ -1,4 +1,3 @@
-import { Song } from "../../models/entry";
 import { User } from "../../models/user";
 import { diaryClient } from "../axios";
 

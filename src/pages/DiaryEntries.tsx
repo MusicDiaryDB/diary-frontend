@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
 import {Button} from '@mui/material';
 import "../assets/css/pages/DiaryEntries.css";
-import { Entry, Song } from '../assets/models/entry';
+import { Entry } from '../assets/models/entry';
 import { useState } from 'react';
 
 function DiaryEntries(){
@@ -70,8 +70,3 @@ function DiaryEntries(){
 }
 
 export default DiaryEntries;
-
-function setState(arg0: boolean): [any, any] {
-    throw new Error('Function not implemented.');
-}
-

@@ -1,6 +1,5 @@
 import {MenuItem, TextField} from "@mui/material";
 import "../../../assets/css/components/layout/AppHeader.css"
-import {useNavigate} from 'react-router-dom';
 import {User} from '../../../assets/models/user'
 import {faCheck, faPen, faTrash, faX} from "@fortawesome/free-solid-svg-icons";
 import {useState} from "react";
@@ -19,7 +18,6 @@ function UserListing({user}) {
     const [visbilityVal, updateVisibilityVal] = useState(user.Visibility)
 
     const queryClient = useQueryClient()
-    const navigate = useNavigate()
 
     const updateUserMutation = useMutation({
         mutationFn: (user: User) => updateUser({
