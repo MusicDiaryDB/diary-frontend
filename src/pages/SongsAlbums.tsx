@@ -17,6 +17,7 @@ function SongsAlbums() {
     const [possibleSongs, setPossibleSongs] = useState<PossibleSong[]>([])
     const [newSongTitle, setNewSongTitle] = useState<string>("")
     const [newSongArtist, setNewSongArtist] = useState<string>("")
+    const [showMessage, setShowMessage] = useState<boolean>(false)
 
     const queryClient = useQueryClient()
 
@@ -99,12 +100,15 @@ function SongsAlbums() {
                                     <button
                                         onClick={() => {
                                             addNewSongFromGeniusSearch(possibleSongs[index].geniusSongId)
-                                                .then((state) => {
+                                                .then(async (state) => {
                                                     setPossibleSongs([])
 
                                                     if (state?.isSongMutated){
                                                         queryClient.invalidateQueries({queryKey: ['songs']})
                                                     }else {
+                                                        setShowMessage(true)
+                                                        await new Promise(r => setTimeout(r, 1000));
+                                                        setShowMessage(false)
                                                     }
                                                     if (state?.isAlbumMutated){
                                                         queryClient.invalidateQueries({queryKey: ['albums']})
@@ -123,6 +127,7 @@ function SongsAlbums() {
                         )
                     }
                 </div>
+                {showMessage && <p>Song Already Added</p> }
 
 
 
@@ -143,21 +148,17 @@ function SongsAlbums() {
                             <p>Songs</p>
                             { !isLoadingSongs &&
                                 songs?.map((song,index)=>(
-                                    <Box key={index}>
+                                    <div key={index} style={{display:"flex",flexDirection:"row"}} >
                                         <p>{song.name}</p>
                                         <FontAwesomeIcon
+                                            color={"red"}
                                             icon={faTrash}
                                             onClick={() => {
-
-                                                // @ts-ignore
-                                                console.log(song)
                                                 // @ts-ignore
                                                 deleteSongAlbumArtistMutation.mutate({tableName:"song",id:song.songId})
                                             }}
                                         />
-                                    </Box>
-
-
+                                    </div>
                                 ))}
 
                         </div>
@@ -165,8 +166,23 @@ function SongsAlbums() {
                         <div className="mgt-lists">
                             <p>Albums</p>
                             { !isLoadingAlbums &&
-                                albums?.map((album)=>(
-                                    <p>{album.name}</p>
+                                albums?.map((album)=> (
+                                    <div style={{display:"flex",flexDirection:"row"}}
+                                    >
+                                        <p>{album.name}</p>
+                                        <FontAwesomeIcon
+                                            color={"red"}
+                                            icon={faTrash}
+                                            onClick={() => {
+                                                // @ts-ignore
+                                                deleteSongAlbumArtistMutation.mutate({
+                                                    tableName: "album",
+                                                    // @ts-ignore
+                                                    id: album.albumId
+                                                })
+                                            }}
+                                        />
+                                    </div>
                                 ))}
 
                         </div>
@@ -175,7 +191,24 @@ function SongsAlbums() {
                             <p>Artists</p>
                             { !isLoadingArtist &&
                                 artists?.map((artist)=>(
-                                    <p>{artist.name}</p>
+                                    <div
+                                        style={{display:"flex",flexDirection:"row"}}
+                                    >
+                                        <p>{artist.name}</p>
+                                        <FontAwesomeIcon
+                                            color={"red"}
+                                            icon={faTrash}
+                                            onClick={() => {
+                                                // @ts-ignore
+                                                deleteSongAlbumArtistMutation.mutate({
+                                                    tableName: "artist",
+                                                    // @ts-ignore
+                                                    id: artist.artistId
+                                                })
+                                            }}
+                                        />
+                                    </div>
+
                                 ))}
 
                         </div>
