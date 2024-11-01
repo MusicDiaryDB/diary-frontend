@@ -61,47 +61,75 @@ export const addSong = async(releaseDate: string, name :string, albumId: string)
     }
 }
 
+//Used to delete either song album or artist
+export const deleteSongAlbumArtist = async(tableName:string,id:number) => {
+
+    try {
+        const validTableNames: string[] = ["artist", "album", "song"]
+        if (!validTableNames.includes(tableName)) {
+            console.error("invalid table name: " + tableName)
+        }
+
+        const response = await diaryClient.delete(`/${tableName}/${id}`)
+
+        return response.data
+
+    }catch (err) {
+        console.error(`Error deleting ${tableName}s`)
+        throw err
+    }
+}
+
+//Used to get either song album or artist
 export const getAllSongsAlbumsArtists = async(tableName:string) => {
 
-    const validTableNames : string[] = ["artist","album","song"]
-    if (!validTableNames.includes(tableName)){
-        console.error("invalid table name: " + tableName)
-    }
+    try {
+        const validTableNames: string[] = ["artist", "album", "song"]
+        if (!validTableNames.includes(tableName)) {
+            console.error("invalid table name: " + tableName)
+        }
 
-    const response = await diaryClient.get(`/${tableName}/all`)
+        const response = await diaryClient.get(`/${tableName}/all`)
 
-    if (tableName === validTableNames[0]){
-        let songList: Song[] = []
-        response.data.map((song:any)=>{
-            songList = [...songList,{
-                songId: song.SongID,
-                releaseDate: song.ReleaseDate,
-                name: song.Name
-            }]
-        })
-        return songList
-    }
-    if (tableName === validTableNames[1]){
-        let albumList: Album[] = []
-        response.data.map((album:any)=>{
-            albumList = [...albumList,{
-                name:album.Name,
-                artistId:album.ArtistID,
-                albumId:album.AlbumID
-            }]
-        })
-        return albumList
-    }
+        console.log(tableName)
+        console.log(response)
+        if (tableName === validTableNames[2]) {
+            let songList: Song[] = []
+            response.data.map((song: any) => {
+                // console.log(song)
+                songList = [...songList, {
+                    songId: song.SongID,
+                    releaseDate: song.ReleaseDate,
+                    name: song.Name
+                }]
+            })
+            return songList
+        }
+        if (tableName === validTableNames[1]) {
+            let albumList: Album[] = []
+            response.data.map((album: any) => {
+                albumList = [...albumList, {
+                    name: album.Name,
+                    artistId: album.ArtistID,
+                    albumId: album.AlbumID
+                }]
+            })
+            return albumList
+        }
 
-    if (tableName === validTableNames[2]){
-        let artistList: Artist[] = []
-        response.data.map((artist:any)=>{
-            artistList = [...artistList,{
-                name:artist.Name,
-                artistId:artist.ArtistID
-            }]
-        })
-        return artistList
+        if (tableName === validTableNames[0]) {
+            let artistList: Artist[] = []
+            response.data.map((artist: any) => {
+                artistList = [...artistList, {
+                    name: artist.Name,
+                    artistId: artist.ArtistID
+                }]
+            })
+            return artistList
+        }
+    }catch (err) {
+        console.error(`Error getting ${tableName}s`)
+        throw err
     }
 }
 
@@ -121,7 +149,7 @@ export const getAlbumByName = async(albumName:string) =>{
 
 export const getSongByName = async(songName:string) =>{
     try{
-        const response = await diaryClient.get(`/album/${songName}`)
+        const response = await diaryClient.get(`/song/${songName}`)
         return {
             albumId: response.data.AlbumID,
             name: response.data.Name,
@@ -161,8 +189,11 @@ export const addNewSongFromGeniusSearch =  async(geniusSongId:number) =>{
                 let getSongResponse = undefined
 
                 if (!isAlbumMutated) {
+                    console.log("here")
                     getSongResponse = await getSongByName(geniusSongDetails.title)
                 }
+
+                console.log(getSongResponse)
 
                 if (!getSongResponse){
                     getSongResponse = await addSong(geniusSongDetails.releaseDate,geniusSongDetails.title,getAlbumResponse.albumId)

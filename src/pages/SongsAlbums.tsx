@@ -1,13 +1,16 @@
 import {Link} from 'react-router-dom';
-import {Button, TextField} from '@mui/material';
+import {Box, Button, TextField} from '@mui/material';
 import "../assets/css/pages/Users.css"
-import {faCheck, faPen, faTrash, faX} from '@fortawesome/free-solid-svg-icons';
+import {faTrash} from '@fortawesome/free-solid-svg-icons';
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import {createUser, getAllUsers} from '../assets/services/diary/user';
 import {useState} from 'react';
 import {findPossibleSongs} from '../assets/services/genius';
 import {PossibleSong} from '../assets/models/entry';
-import {addNewSongFromGeniusSearch, getAllSongsAlbumsArtists} from '../assets/services/diary/song';
+import {addNewSongFromGeniusSearch, deleteSongAlbumArtist, getAllSongsAlbumsArtists} from '../assets/services/diary/song';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function SongsAlbums() {
 
@@ -32,17 +35,18 @@ function SongsAlbums() {
         queryFn: () => getAllSongsAlbumsArtists("artist")
     })
 
-    const addSongMutation = useMutation({
-        mutationFn: ({username, visibility}: {
-            username: string;
-            visibility: string
-        }) => createUser(username, visibility),
-        onSuccess: () => queryClient.invalidateQueries({queryKey: ['allUsers']})
+    //Used to delete either song album or artist
+    const deleteSongAlbumArtistMutation = useMutation({
+        mutationFn: (data : {tableName:string;id:number;}) =>
+            deleteSongAlbumArtist(data.tableName,data.id),
+        onSuccess: () =>{
+            queryClient.invalidateQueries({queryKey: ['songs']})
+            queryClient.invalidateQueries({queryKey: ['albums']})
+            queryClient.invalidateQueries({queryKey: ['artists']})
+        }
     })
 
-
-
-    // @ts-ignore
+    const notify = () => toast("Wow so easy!");
     return (
         <div className="manageUsersPage">
             <Link to="/manage">
@@ -97,8 +101,10 @@ function SongsAlbums() {
                                             addNewSongFromGeniusSearch(possibleSongs[index].geniusSongId)
                                                 .then((state) => {
                                                     setPossibleSongs([])
+
                                                     if (state?.isSongMutated){
                                                         queryClient.invalidateQueries({queryKey: ['songs']})
+                                                    }else {
                                                     }
                                                     if (state?.isAlbumMutated){
                                                         queryClient.invalidateQueries({queryKey: ['albums']})
@@ -136,9 +142,23 @@ function SongsAlbums() {
                         <div className="mgt-lists">
                             <p>Songs</p>
                             { !isLoadingSongs &&
-                                songs?.map((song)=>(
-                                <p>{song.name}</p>
-                            ))}
+                                songs?.map((song,index)=>(
+                                    <Box key={index}>
+                                        <p>{song.name}</p>
+                                        <FontAwesomeIcon
+                                            icon={faTrash}
+                                            onClick={() => {
+
+                                                // @ts-ignore
+                                                console.log(song)
+                                                // @ts-ignore
+                                                deleteSongAlbumArtistMutation.mutate({tableName:"song",id:song.songId})
+                                            }}
+                                        />
+                                    </Box>
+
+
+                                ))}
 
                         </div>
 
