@@ -7,7 +7,7 @@ import {createUser, getAllUsers} from '../assets/services/diary/user';
 import {useState} from 'react';
 import {findPossibleSongs} from '../assets/services/genius';
 import {PossibleSong} from '../assets/models/entry';
-import {addNewSongFromGeniusSearch} from '../assets/services/diary/song';
+import {addNewSongFromGeniusSearch, getAllSongsAlbumsArtists} from '../assets/services/diary/song';
 
 function SongsAlbums() {
 
@@ -19,17 +19,17 @@ function SongsAlbums() {
 
     const {data: songs, isLoading: isLoadingSongs} = useQuery({
         queryKey: ["songs"],
-        queryFn: () => getAllUsers()
+        queryFn: () => getAllSongsAlbumsArtists("song")
     })
 
     const {data: albums, isLoading: isLoadingAlbums} = useQuery({
         queryKey: ["albums"],
-        queryFn: () => getAllUsers()
+        queryFn: () => getAllSongsAlbumsArtists("album")
     })
 
     const {data: artists, isLoading: isLoadingArtist} = useQuery({
         queryKey: ["artists"],
-        queryFn: () => getAllUsers()
+        queryFn: () => getAllSongsAlbumsArtists("artist")
     })
 
     const addSongMutation = useMutation({
@@ -97,7 +97,16 @@ function SongsAlbums() {
                                             addNewSongFromGeniusSearch(possibleSongs[index].geniusSongId)
                                                 .then((state) => {
                                                     setPossibleSongs([])
-                                                    state?.isSongMutated && queryClient.invalidateQueries({queryKey: ['allUsers']})
+                                                    if (state?.isSongMutated){
+                                                        queryClient.invalidateQueries({queryKey: ['songs']})
+                                                    }
+                                                    if (state?.isAlbumMutated){
+                                                        queryClient.invalidateQueries({queryKey: ['albums']})
+                                                    }
+                                                    if (state?.isArtistMutated){
+                                                        queryClient.invalidateQueries({queryKey: ['artists']})
+                                                    }
+
                                                 })
                                         }}
                                     >Confirm Entry
@@ -113,8 +122,11 @@ function SongsAlbums() {
 
                 <div style={{display: "flex",flexDirection:"column", justifyContent: "space-between"}}>
                     <p style={{color: "navy", cursor: "pointer"}}
-                       onClick={() =>
-                           queryClient.invalidateQueries({queryKey: ['allUsers']})}>
+                       onClick={() =>{
+                           queryClient.invalidateQueries({queryKey: ['songs']})
+                           queryClient.invalidateQueries({queryKey: ['albums']})
+                           queryClient.invalidateQueries({queryKey: ['artists']})
+                    }}>
                         Refresh
                     </p>
 
@@ -123,16 +135,28 @@ function SongsAlbums() {
                     >
                         <div className="mgt-lists">
                             <p>Songs</p>
+                            { !isLoadingSongs &&
+                                songs?.map((song)=>(
+                                <p>{song.name}</p>
+                            ))}
 
                         </div>
 
                         <div className="mgt-lists">
                             <p>Albums</p>
+                            { !isLoadingAlbums &&
+                                albums?.map((album)=>(
+                                    <p>{album.name}</p>
+                                ))}
 
                         </div>
 
                         <div className="mgt-lists">
                             <p>Artists</p>
+                            { !isLoadingArtist &&
+                                artists?.map((artist)=>(
+                                    <p>{artist.name}</p>
+                                ))}
 
                         </div>
 

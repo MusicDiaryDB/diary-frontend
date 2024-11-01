@@ -21,11 +21,13 @@ export interface Song{
 
 export interface Album {
     name: string;
-    artistId: string
+    artistId: string;
+    albumId:string;
 }
 
 export interface Artist {
     name: string;
+    artistId:string;
 }
 
 export interface PossibleSong{

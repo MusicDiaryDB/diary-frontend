@@ -83,13 +83,24 @@ export const getAllSongsAlbumsArtists = async(tableName:string) => {
     }
     if (tableName === validTableNames[1]){
         let albumList: Album[] = []
-
+        response.data.map((album:any)=>{
+            albumList = [...albumList,{
+                name:album.Name,
+                artistId:album.ArtistID,
+                albumId:album.AlbumID
+            }]
+        })
         return albumList
     }
 
     if (tableName === validTableNames[2]){
         let artistList: Artist[] = []
-
+        response.data.map((artist:any)=>{
+            artistList = [...artistList,{
+                name:artist.Name,
+                artistId:artist.ArtistID
+            }]
+        })
         return artistList
     }
 }
