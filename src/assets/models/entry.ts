@@ -15,8 +15,8 @@ export interface Song{
     songId: number;
     releaseDate: string;
     name: string;
-    artist:string;
-    album: string
+    // artist:string;
+    // album: string
 }
 
 export interface Album {

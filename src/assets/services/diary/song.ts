@@ -1,6 +1,7 @@
 import { diaryClient } from "../axios";
 import { User } from "../../models/user";
 import {getSongDetials} from "../genius"
+import {Album, Artist, Song } from "../../models/entry";
 
 
 
@@ -60,72 +61,38 @@ export const addSong = async(releaseDate: string, name :string, albumId: string)
     }
 }
 
-export const getAllUsers = async () => {
-    try {
-        const users: User[] = []
-        const response = await diaryClient.get(`/user/all`)
+export const getAllSongsAlbumsArtists = async(tableName:string) => {
 
-        response.data.map((user: User) => users.push({
-            UserID: user.UserID,
-            Username: user.Username,
-            Visibility: user.Visibility
-        }))
-        return users
-    }catch (err) {
-        console.error("Error creating user", err)
-        throw err
+    const validTableNames : string[] = ["artist","album","song"]
+    if (!validTableNames.includes(tableName)){
+        console.error("invalid table name: " + tableName)
+    }
+
+    const response = await diaryClient.get(`/${tableName}/all`)
+
+    if (tableName === validTableNames[0]){
+        let songList: Song[] = []
+        response.data.map((song:any)=>{
+            songList = [...songList,{
+                songId: song.SongID,
+                releaseDate: song.ReleaseDate,
+                name: song.Name
+            }]
+        })
+        return songList
+    }
+    if (tableName === validTableNames[1]){
+        let albumList: Album[] = []
+
+        return albumList
+    }
+
+    if (tableName === validTableNames[2]){
+        let artistList: Artist[] = []
+
+        return artistList
     }
 }
-
-export const getUserById = async(userId:number) =>  {
-    try {
-        const response = await diaryClient.get(`/user/${userId}`)
-        console.log(response.data)
-        return response.data
-    } catch (err) {
-        console.error("Error getting user by id", err)
-        throw err
-    }
-}
-
-
-export const getUserByUsername = async(username:string) =>  {
-    try {
-        const response = await diaryClient.get(`/user/${username}`)
-        console.log(response.data)
-        return response.data
-    } catch (err) {
-        console.error("Error getting user by username", err)
-        throw err
-    }
-}
-
-export const updateUser = async (userData : User) => {
-    try {
-        const form = new FormData()
-        form.append("userId",userData.UserID.toString())
-        form.append("username",userData.Username)
-        form.append("visibility",userData.Visibility)
-        console.log(form)
-
-        const response = await diaryClient.put(`/user/${userData.UserID}`,form)
-        return response.status === 200
-    }catch (err) {
-        console.error("Error updating user",err)
-        throw err
-    }
-}
-
-export const deleteUser = async (userId : number) => {
-    try {
-        const response = await diaryClient.delete(`/user/${userId.toString()}`)
-        return response.status === 200
-    }catch (err) {
-        console.error("Error updating user",err)
-        throw err
-    }
-}
-
 
 export const getAlbumByName = async(albumName:string) =>{
     try{
@@ -141,23 +108,65 @@ export const getAlbumByName = async(albumName:string) =>{
     }
 }
 
+export const getSongByName = async(songName:string) =>{
+    try{
+        const response = await diaryClient.get(`/album/${songName}`)
+        return {
+            albumId: response.data.AlbumID,
+            name: response.data.Name,
+            releaseDate: response.data.ReleaseDate,
+            songId: response.data.SongID
+        }
+    }catch (err) {
+        console.error("Error getting artist by name", err)
+        // throw err
+    }
+}
+
 export const addNewSongFromGeniusSearch =  async(geniusSongId:number) =>{
+    let isArtistMutated, isAlbumMutated, isSongMutated = false
     const geniusSongDetails = await getSongDetials(geniusSongId)
     try{
         let getArtistResponse = await getArtistbyName(geniusSongDetails.artist)
 
         if (!getArtistResponse){
             getArtistResponse = await addArtist(geniusSongDetails.artist)
+            isArtistMutated = true;
         }
         try {
-            let getAlbumResponse = await getAlbumByName(geniusSongDetails.albumName)
+
+            let getAlbumResponse = undefined
+
+            if (!isArtistMutated) {
+                getAlbumResponse =  await getAlbumByName(geniusSongDetails.albumName)
+            }
 
             if (!getAlbumResponse) {
                 getAlbumResponse = await addAlbum(geniusSongDetails.albumName, getArtistResponse?.artistId)
+                isAlbumMutated = true
             }
 
-            const addSongResponse = await addSong(geniusSongDetails.releaseDate,geniusSongDetails.title,getAlbumResponse.albumId)
-            return addSongResponse.data.status == 201
+            try {
+                let getSongResponse = undefined
+
+                if (!isAlbumMutated) {
+                    getSongResponse = await getSongByName(geniusSongDetails.title)
+                }
+
+                if (!getSongResponse){
+                    getSongResponse = await addSong(geniusSongDetails.releaseDate,geniusSongDetails.title,getAlbumResponse.albumId)
+                }
+                isSongMutated = true
+            }catch (err) {
+                console.error("Error adding song from search")
+            }
+
+            return {
+                isSongMutated:isSongMutated,
+                isArtistMutated:isArtistMutated,
+                isAlbumMutated:isAlbumMutated
+            }
+
         }catch (err) {
 
         }
