@@ -66,7 +66,7 @@ function SongsAlbums() {
 
                     <Button variant="outlined"
                             onClick={() => {
-                                findPossibleSongs("humle", "kendrick")
+                                findPossibleSongs(newSongTitle, newSongArtist)
                                     .then((possibleSongs)=>
                                         setPossibleSongs(possibleSongs || [])
                                     )
@@ -85,7 +85,9 @@ function SongsAlbums() {
                                         onClick={()=>{
                                             addNewSongFromGeniusSearch(possibleSongs[index].geniusSongId)
                                                 .then((isAdded) =>{
-                                                    isAdded && setPossibleSongs([])
+                                                    if (isAdded) {
+                                                        setPossibleSongs([])
+                                                    }
                                                 })
                                         }}
                                     >Confirm Entry</button>

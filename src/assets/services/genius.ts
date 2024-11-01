@@ -35,7 +35,7 @@ export const getSongDetials = async (songId?: number) => {
         return {
             title: songResponse.data.song.title,
             artist: songResponse.data.song.primary_artist.name,
-            albumName: songResponse.data.song.album.name,
+            albumName: songResponse.data.song.album?.name != null ? songResponse.data.song.album.name : `${songResponse.data.song.title}-Single`,
             releaseDate: songResponse.data.song.release_date
         }
 

@@ -24,7 +24,7 @@ export const addArtist = async(artistName: string) =>  {
         const form = new FormData()
         form.append("name",artistName)
         const response = await diaryClient.post("/artist", form)
-        return response.data.ArtistID
+        return {artistId:response.data.ArtistID,artistName:artistName}
     } catch (err) {
         console.error("Error adding artist", err)
         throw err
