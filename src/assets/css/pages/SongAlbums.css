@@ -1,0 +1,26 @@
+.manageUsersPage{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.addUserFields, .userListing{
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 60vw;
+}
+
+.username{
+    display: flex;
+    flex-direction: row;
+}
+
+.mgt-lists div p{
+     min-width: 10rem;
+}
+
+.mgt-lists div{
+    gap: 1rem;
+}

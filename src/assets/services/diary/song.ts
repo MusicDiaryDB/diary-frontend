@@ -71,9 +71,7 @@ export const deleteSongAlbumArtist = async(tableName:string,id:number) => {
         }
 
         const response = await diaryClient.delete(`/${tableName}/${id}`)
-
         return response.data
-
     }catch (err) {
         console.error(`Error deleting ${tableName}s`)
         throw err

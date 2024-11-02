@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom';
 import {Box, Button, TextField} from '@mui/material';
-import "../assets/css/pages/Users.css"
+import "../assets/css/pages/SongAlbums.css"
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import {createUser, getAllUsers} from '../assets/services/diary/user';
@@ -142,7 +142,7 @@ function SongsAlbums() {
                     </p>
 
                     <div
-                        style={{display: "flex", flexDirection: "row", justifyContent: "space-evenly"}}
+                        style={{gap:"0.5rem",display: "flex", flexDirection: "row", justifyContent: "space-evenly"}}
                     >
                         <div className="mgt-lists">
                             <p>Songs</p>
