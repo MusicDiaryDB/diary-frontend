@@ -3,6 +3,10 @@ import {geniusClient} from './axios';
 
 export const findPossibleSongs = async (title?: string, artist?: string) => {
     try {
+        console.log(`song to be found ${title}`)
+        if (!artist) {
+            artist = ""
+        }
         let possibleSongs: PossibleSong[] = []
         const response = await geniusClient.get("/search", {
             params: {

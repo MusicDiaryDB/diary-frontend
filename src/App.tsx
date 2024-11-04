@@ -12,6 +12,7 @@ import DiaryEntries from "./pages/DiaryEntries";
 import Management from "./pages/Management";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import SongsAlbums from "./pages/SongsAlbums";
+import Reviews from "./pages/Reviews";
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -32,6 +33,7 @@ function App() {
                   <Route path="/users" element={<Users/>} />
                   <Route path="/songs_albums" element={<SongsAlbums/>} />
                   <Route path="/home" element={<Home/>} />
+                  <Route path="/reviews" element={<Reviews/>} />
                   <Route path="/manage" element={<Management/>} />
 
                   <Route path="/" element={<Login/>} />

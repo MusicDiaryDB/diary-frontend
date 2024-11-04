@@ -1,101 +1,121 @@
 import {useNavigate} from 'react-router-dom';
-import {Button, MenuItem, TextField, TextareaAutosize } from '@mui/material';
+import {Button, MenuItem, TextField, TextareaAutosize} from '@mui/material';
 import "../assets/css/pages/Home.css"
-import { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import {useState} from 'react';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faTrash} from '@fortawesome/free-solid-svg-icons';
+import {USER_VISIBILITY} from '../assets/constants';
+import {findPossibleSongs} from '../assets/services/genius';
+import {PossibleSong, Song} from '../assets/models/entry';
 
-function Home(){
+function Home() {
 
-const navigate = useNavigate()
+    const navigate = useNavigate()
     // @ts-ignore
-    const [song, setSong] = useState("")
-    const [entries, setEntries] = useState([])
+    const [song, setSong] = useState<string>("")
+    const [possibleEntries, setPossibleEntries] = useState<PossibleSong[]>([])
 
-    const visibility = [
-        {
-            value: 'PUBLIC',
-            label: 'PUBLIC',
-        },
-        {
-            value: 'PRIVATE',
-            label: 'PRIVATE',
-        },
-        {
-            value: 'FRIENDS',
-            label: 'FRIENDS',
-        },
-    ];
+    const [message, setMessage] = useState<string>("")
+    const [showMessage, setShowMessage] = useState<boolean>(false)
 
-    return(
+
+    return (
         <div className="homePage">
 
             <h1>What are we jamming to this week?</h1>
             <div>
                 <div>
-                    {entries.map((entry) => (
-                    <div className="entryDetails">
-                            <p style={{padding: "0 0 1rem 0"}}>{entry}</p>
-                        <div className="entryOptions">
-                            <TextareaAutosize minRows={2} />
+                    {possibleEntries.map((entry, index) => (
+                        <div className="entryDetails" key={index}>
+                            <p style={{padding: "0 0 1rem 0"}}>{entry.fullTitle}</p>
+                            <div className="entryOptions">
+                                <TextareaAutosize minRows={2}/>
 
-                            <TextField
-                                required
-                                id="outlined-select-currency"
-                                select
-                                label="Select"
-                                defaultValue="EUR"
-                                helperText="Please select your currency"
-                            >
-                                {visibility.map((option) => (
-                                <MenuItem key={option.value} value={option.value}>
-                                    {option.label}
-                                </MenuItem>
-                                ))}
-                            </TextField>
+                                <TextField
+                                    required
+                                    id="outlined-select-currency"
+                                    select
+                                    label="Select"
+                                    defaultValue="PUBLIC"
+                                    helperText="Please select your currency"
+                                >
+                                    {USER_VISIBILITY.map((option) => (
+                                        <MenuItem key={option.value} value={option.value}>
+                                            {option.label}
+                                        </MenuItem>
+                                    ))}
+                                </TextField>
+                            </div>
+                            <FontAwesomeIcon icon={faTrash}
+                                             style={{
+                                                 color: "red",
+                                                 padding: 0
+                                             }}/>
                         </div>
-                        <FontAwesomeIcon icon={faTrash}
-                                         style={{
-                                             color: "red",
-                                             padding: 0
-                                         }}/>
-                    </div>
-            ))}
-        </div>
+                    ))}
+                </div>
 
             </div>
 
 
             <div className="diaryEntriesSection">
-                {entries.length<3 &&
+                {possibleEntries.length < 3 &&
                     <div className="addSong">
                         <TextField id="standard-basic"
                                    label="Find Song"
                                    variant="standard"
                                    value={song}
-                                   onChange={(e)=>{
+                                   onChange={(e) => {
                                        // @ts-ignore
                                        setSong(e.target.value)
                                    }}
                         />
-                        <Button onClick={()=>{
-                            if (song !== ""){
-                            // @ts-ignore
-                            setEntries([...entries,song])
-                            setSong("")}
+                        <Button onClick={() => {
+                            if (song !== "") {
+                                if (possibleEntries.length < 3) {
+                                    findPossibleSongs(song).then(async (possibleSongs) => {
+                                        if (possibleSongs != undefined) {
+                                            console.log("here")
+                                            if (possibleSongs.length != 0) {
+                                                //dont add to possible songs if already there
+                                                if (!possibleEntries.includes(possibleSongs[0])) {
+                                                    setPossibleEntries([...possibleEntries, possibleSongs[0]])
+                                                    setSong("")
+                                                }else{
+                                                    setMessage("Song already selected")
+                                                    setShowMessage(true)
+                                                    await new Promise(r => setTimeout(r, 1000));
+                                                    setShowMessage(false)
+                                                    setMessage("")
+                                                }
+                                            } else {
+                                                setMessage("No song found")
+                                                setShowMessage(true)
+                                                await new Promise(r => setTimeout(r, 1000));
+                                                setShowMessage(false)
+                                                setMessage("")
+                                            }
 
-                        }}
-                        >+ Add Song</Button>
+                                        }
+                                        // console.log(possibleSongs[0])
+                                        console.log(possibleEntries)
+                                    })
+                                }
+
+                            }
+                        }}>
+                            Search Song</Button>
                     </div>
                 }
-                {entries.length > 0 &&
+                {showMessage && <p style={{color:"red"}}>{message}</p> }
+                {possibleEntries.length > 0 &&
                     <div>
                         <Button color="success"
                                 variant="contained"
-                            onClick={()=>{
-                           //todo make diary entry
-                                navigate("/entries")
-                        }}
+                                onClick={() => {
+                                    //todo make diary entry
+                                    navigate("/entries")
+                                }}
                         >Confirm Diary Entry</Button>
                     </div>
                 }
@@ -105,5 +125,6 @@ const navigate = useNavigate()
         </div>
     )
 }
+
 export default Home;
 
