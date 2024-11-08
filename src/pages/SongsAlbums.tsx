@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom';
-import {Box, Button, TextField} from '@mui/material';
+import { Button, TextField} from '@mui/material';
 import "../assets/css/pages/SongAlbums.css"
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
@@ -9,7 +9,7 @@ import {findPossibleSongs} from '../assets/services/genius';
 import {PossibleSong} from '../assets/models/entry';
 import {addNewSongFromGeniusSearch, deleteSongAlbumArtist, getAllSongsAlbumsArtists} from '../assets/services/diary/song';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ToastContainer, toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function SongsAlbums() {

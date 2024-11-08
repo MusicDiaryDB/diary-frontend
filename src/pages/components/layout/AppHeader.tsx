@@ -8,13 +8,12 @@ const navigate = useNavigate()
         <header style={{ minWidth:'1200px'}}>
            <p>MusicDiary</p>
 
-                <p onClick={
-                    () => {
+                <p onClick={() => {
                         sessionStorage.setItem("username","")
                         navigate("/")
-
-                    }
-                }>Logout</p>
+                    }}
+                   style={{cursor:"pointer"}}
+                >Logout</p>
         </header>
     )
 }

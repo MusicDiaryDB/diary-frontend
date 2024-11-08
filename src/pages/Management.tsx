@@ -22,8 +22,8 @@ function Management(){
         {
             tableName:"Reviews",
             desc:"Manage reviews here",
-            addNewRoute:"",
-            manageRoute:""
+            addNewRoute:"/reviews",
+            manageRoute:"/reviews"
         }
 
     ]
