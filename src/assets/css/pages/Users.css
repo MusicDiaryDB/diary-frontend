@@ -1,18 +1,19 @@
-.manageUsersPage{
+.manageUsersPage {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.addUserFields, .userListing{
-    padding: 0.5rem;
+.addUserFields,
+.userListing {
+    padding: 0.25rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 60vw;
 }
 
-.username{
+.username {
     display: flex;
     flex-direction: row;
 }
