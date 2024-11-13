@@ -31,6 +31,14 @@ function Management() {
       manageRoute: "/reviews",
     },
   ];
+
+  // card table for admin metrics view
+  const metricsCard = {
+    tableName: "Database Info, Health, & Performance",
+    desc: "View database info and performance metrics here",
+    route: "/admin/info-metrics",
+  };
+
   return (
     <div className="managementPage">
       {manageables.map((cardData) => (
@@ -54,6 +62,22 @@ function Management() {
           </CardActions>
         </Card>
       ))}
+
+      <Card sx={{ width: 345 }}>
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            {metricsCard.tableName}
+          </Typography>
+          <Typography variant="body2" sx={{ color: "text.secondary" }}>
+            {metricsCard.desc}
+          </Typography>
+        </CardContent>
+        <CardActions>
+          <Link to={metricsCard.route}>
+            <Button size="small">View</Button>
+          </Link>
+        </CardActions>
+      </Card>
     </div>
   );
 }

@@ -1,0 +1,78 @@
+.resultsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+.metricSection {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.metricTitle {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+.metricContent {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+.metricTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    color: #333;
+    margin-top: 1rem;
+}
+
+.metricTable th {
+    background-color: #007bff;
+
+    color: white;
+    padding: 0.75rem;
+    text-align: left;
+}
+
+.metricTable td {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+}
+
+.metricTable tr:nth-child(even) {
+    background-color: #f2f2f2;
+
+}
+
+.noDataText {
+    font-size: 1rem;
+    font-style: italic;
+    color: #888;
+    text-align: left;
+}
+
+.centeredMessage {
+    font-size: 1.2rem;
+    color: #555;
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.metricContent p {
+    margin: 0.5rem 0;
+}
