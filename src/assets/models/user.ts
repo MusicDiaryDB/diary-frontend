@@ -1,5 +1,7 @@
 export interface User {
-    UserID: number;
-    Username: string;
-    Visibility: string;
+  UserID: number;
+  Username: string;
+  Password: string;
+  Visibility: string;
+  IsAdmin: string;
 }
