@@ -12,11 +12,8 @@ import DiaryEntries from "./pages/DiaryEntries";
 import Management from "./pages/Management";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import SongsAlbums from "./pages/SongsAlbums";
-<<<<<<< HEAD
 import FriendsList from "./pages/FriendsList";
-=======
 import Reviews from "./pages/Reviews";
->>>>>>> b1134c311701469277cb6c40b212eec7f3092156
 
 const queryClient = new QueryClient({
     defaultOptions: {
