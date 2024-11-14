@@ -33,51 +33,76 @@ function Management() {
   ];
 
   // card table for admin metrics view
-  const metricsCard = {
+  const infoCard = {
     tableName: "Database Info, Health, & Performance",
     desc: "View database info and performance metrics here",
     route: "/admin/info-metrics",
   };
+  const aggregateMetricsCard = {
+    tableName: "Database Aggregation Metrics",
+    desc: "View aggregated metrics about database",
+    route: "/admin/aggregate-metrics",
+  };
 
   return (
     <div className="managementPage">
-      {manageables.map((cardData) => (
+      <div className="column">
+        {manageables.map((cardData) => (
+          <Card sx={{ width: 345 }} key={cardData.tableName}>
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                {cardData.tableName}
+              </Typography>
+              <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                {cardData.desc}
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Link to={cardData.addNewRoute}>
+                <Button size="small">Add New</Button>
+              </Link>
+
+              <Link to={cardData.manageRoute}>
+                <Button size="small">Manage</Button>
+              </Link>
+            </CardActions>
+          </Card>
+        ))}
+      </div>
+
+      <div className="column">
         <Card sx={{ width: 345 }}>
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              {cardData.tableName}
+              {infoCard.tableName}
             </Typography>
             <Typography variant="body2" sx={{ color: "text.secondary" }}>
-              {cardData.desc}
+              {infoCard.desc}
             </Typography>
           </CardContent>
           <CardActions>
-            <Link to={cardData.addNewRoute}>
-              <Button size="small">Add New</Button>
-            </Link>
-
-            <Link to={cardData.manageRoute}>
-              <Button size="small">Manage</Button>
+            <Link to={infoCard.route}>
+              <Button size="small">View</Button>
             </Link>
           </CardActions>
         </Card>
-      ))}
 
-      <Card sx={{ width: 345 }}>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {metricsCard.tableName}
-          </Typography>
-          <Typography variant="body2" sx={{ color: "text.secondary" }}>
-            {metricsCard.desc}
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Link to={metricsCard.route}>
-            <Button size="small">View</Button>
-          </Link>
-        </CardActions>
-      </Card>
+        <Card sx={{ width: 345 }}>
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {aggregateMetricsCard.tableName}
+            </Typography>
+            <Typography variant="body2" sx={{ color: "text.secondary" }}>
+              {aggregateMetricsCard.desc}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Link to={aggregateMetricsCard.route}>
+              <Button size="small">View</Button>
+            </Link>
+          </CardActions>
+        </Card>
+      </div>
     </div>
   );
 }

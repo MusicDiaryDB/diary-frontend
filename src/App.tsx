@@ -37,10 +37,10 @@ function App() {
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/manage" element={<Management />} />
           <Route path="/user_friends/:userId" element={<FriendsList />} />
-          <Route path="/graph" element = {<Graph />} />
-          <Route path="/admin_board" element = {<AdminBoard />} />
 
           <Route path="/admin/info-metrics" element={<AdminMetrics />} />
+          <Route path="/admin/aggregate-metrics" element={<AdminBoard />} />
+          <Route path="/admin/aggregate-graph" element={<Graph />} />
 
           <Route path="/" element={<Login />} />
           <Route path="*" element={<div>Page Not Found</div>} />

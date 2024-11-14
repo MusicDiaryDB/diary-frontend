@@ -1,9 +1,16 @@
-.managementPage{
+.managementPage {
     height: 85vh;
     display: flex;
+    flex-direction: row;
+    gap: 18px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.column {
+    display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
+    gap: 18px;
 }
 
 
