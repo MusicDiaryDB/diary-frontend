@@ -74,6 +74,7 @@ function Login() {
         {loginButtonText}
       </Button>
 
+      {/* TODO: validation of admin accout */}
       <Button
         className="loginField"
         onClick={() => {

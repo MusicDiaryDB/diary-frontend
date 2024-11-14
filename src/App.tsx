@@ -10,8 +10,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import SongsAlbums from "./pages/SongsAlbums";
 import FriendsList from "./pages/FriendsList";
 import Reviews from "./pages/Reviews";
+
 import Graph from "./pages/Graph";
 import AdminMetric from "./pages/AdminMetric";
+import AdminMetrics from "./pages/AdminMetrics";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -37,6 +39,8 @@ function App() {
           <Route path="/user_friends/:userId" element={<FriendsList />} />
           <Route path="/graph" element = {<Graph />} />
           <Route path="/admin_board" element = {<AdminMetric />} />
+
+          <Route path="/admin/info-metrics" element={<AdminMetrics />} />
 
           <Route path="/" element={<Login />} />
           <Route path="*" element={<div>Page Not Found</div>} />
