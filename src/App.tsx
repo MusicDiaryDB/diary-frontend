@@ -12,7 +12,7 @@ import FriendsList from "./pages/FriendsList";
 import Reviews from "./pages/Reviews";
 
 import Graph from "./pages/Graph";
-import AdminMetric from "./pages/AdminMetric";
+import AdminBoard from "./pages/AdminBoard";
 import AdminMetrics from "./pages/AdminMetrics";
 
 const queryClient = new QueryClient({
@@ -38,7 +38,7 @@ function App() {
           <Route path="/manage" element={<Management />} />
           <Route path="/user_friends/:userId" element={<FriendsList />} />
           <Route path="/graph" element = {<Graph />} />
-          <Route path="/admin_board" element = {<AdminMetric />} />
+          <Route path="/admin_board" element = {<AdminBoard />} />
 
           <Route path="/admin/info-metrics" element={<AdminMetrics />} />
 
