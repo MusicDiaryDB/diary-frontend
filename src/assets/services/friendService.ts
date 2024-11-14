@@ -22,6 +22,7 @@ export const fetchUserFriends = async (userId: number) => {
 };
 
 export const fetchUserReviews = async (userId: number) => {
+    console.log("HERE:", userId)
     try {
         const response = await axios.get(`${API_URL}/user_reviews/${userId}`);
         const reviews = response.data;
@@ -29,7 +30,7 @@ export const fetchUserReviews = async (userId: number) => {
         console.log("Fetched reviews:", reviews);
         return reviews.map((review: any) => ({
             reviewId: review.ReviewID,
-            songname: review.Name,  
+            songname: review.songname, 
             contents: review.Contents,
             username: review.Username
         }));
