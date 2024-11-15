@@ -1,0 +1,38 @@
+.landing-page {
+    background: linear-gradient(135deg, #6a11cb, #2575fc); /* Gradient background */
+    height: 100vh; /* Full screen height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+  }
+  
+  .content {
+    text-align: center;
+    padding: 2rem;
+  }
+  
+  .headline {
+    font-size: 4rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .subheadline {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+  
+  .cta-button {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    text-transform: none;
+    border-radius: 30px;
+    background-color: #2575fc;
+    transition: background-color 0.3s ease;
+  }
+  
+  .cta-button:hover {
+    background-color: #6a11cb;
+  }
+  

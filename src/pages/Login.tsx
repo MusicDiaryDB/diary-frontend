@@ -49,7 +49,7 @@ function Login() {
               sessionStorage.setItem("isLoggedIn", true);
               // @ts-ignore
               sessionStorage.setItem("isAdmin", false);
-              navigate("/home");
+              navigate(`/${res.UserID}/home`);
             })
             .catch(async (error) => {
               setLoginButtonText("Creating User...");
