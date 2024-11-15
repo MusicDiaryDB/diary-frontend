@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AppHeader from "./pages/components/layout/AppHeader";
-import { useParams } from 'react-router-dom';
 import Home from "./pages/Home";
 import Users from "./pages/Users";
 import AppFooter from "./pages/components/layout/AppFooter";
@@ -11,7 +10,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import SongsAlbums from "./pages/SongsAlbums";
 import FriendsList from "./pages/FriendsList";
 import Reviews from "./pages/Reviews";
-import UserNavBar from "./pages/components/layout/UserNavBar";
 
 import Graph from "./pages/Graph";
 import AdminBoard from "./pages/AdminBoard";
@@ -34,15 +32,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Router>
         <AppHeader />
-        
         <Routes>
-          {/* User-specific navbar and routes */}
-          <Route
-            path="/:userId/*"
-            element={<NavbarWrapper />}
-          />
-
-          {/* Routes for general pages */}
           <Route path="/entries" element={<DiaryEntries />} />
           <Route path="/users" element={<Users />} />
           <Route path="/songs_albums" element={<SongsAlbums />} />
@@ -73,10 +63,5 @@ function App() {
     </QueryClientProvider>
   );
 }
-
-const NavbarWrapper = () => {
-  const { userId } = useParams(); // useParams hooks to get userId from the URL
-  return userId ? <UserNavBar userId={userId} /> : null;
-};
 
 export default App;
