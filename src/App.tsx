@@ -16,6 +16,7 @@ import AdminBoard from "./pages/AdminBoard";
 import AdminMetrics from "./pages/AdminMetrics";
 import UserDiaryReportCreate from "./pages/UserDiaryReportCreate";
 import UserReviewCreate from "./pages/UserReviewCreate";
+import UserReviews from "./pages/UserReviews";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -46,6 +47,7 @@ function App() {
             element={<UserDiaryReportCreate />}
           />
           <Route path="/:userId/review/new" element={<UserReviewCreate />} />
+          <Route path="/:userId/reviews" element={<UserReviews />} />
 
           {/* admin specific endpoints */}
           <Route path="/admin/info-metrics" element={<AdminMetrics />} />

@@ -1,10 +1,19 @@
 import { diaryClient } from "../axios";
-import { getSongByName } from "./song";
+import { getSongByName, getSongByID } from "./song";
 
-interface DisplayReview {
+interface Review {
+  ReviewID: number;
+  Contents: string;
+  Visibility: string;
+  SongID: number;
+  UserID: number;
+}
+
+export interface DisplayReview {
   SongName: string;
   Contents: string;
   Visibility: string;
+  ReviewID: number;
 }
 
 export const createUserReview = async function (
@@ -38,6 +47,38 @@ export const createUserReview = async function (
       Contents: contents,
       SongName: songName,
       Visibility: visibility,
+      ReviewID: res.ReviewID,
     },
   };
+};
+
+export const getUserReviews = async function (
+  userId: number,
+): Promise<Review[]> {
+  try {
+    // Fetch user entries
+    const resp = await diaryClient.get(`/review/user/${userId}`);
+    const res = resp.data.result;
+    return res;
+  } catch (error) {
+    console.log("Error fetching user entries:", error);
+    throw error;
+  }
+};
+
+export const fetchReviewSongNames = async function (
+  reviews: Review[],
+): Promise<DisplayReview[]> {
+  const out = await Promise.all(
+    reviews.map(async (review) => {
+      const song = await getSongByID(review.SongID);
+      return {
+        SongName: song.Name,
+        Contents: review.Contents,
+        Visibility: review.Visibility,
+        ReviewID: review.ReviewID,
+      };
+    }),
+  );
+  return out;
 };
