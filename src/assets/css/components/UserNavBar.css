@@ -1,0 +1,111 @@
+/* General styles for the navbar */
+.navbar {
+    background-color: #2c3e50;
+    padding: 10px 0;
+    box-shadow: 0 4px 2px -2px gray;
+  }
+  
+  .navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .navbar-link {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .navbar-link:hover {
+    background-color: #34495e;
+    color: #ecf0f1;
+  }
+  
+  .navbar-link:active {
+    background-color: #1abc9c;
+    color: #ecf0f1;
+  }
+  
+  /* Dropdown container styles */
+  .dropdown {
+    position: relative;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #34495e;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+  }
+  
+  .dropdown-item {
+    text-decoration: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .dropdown-item:hover {
+    background-color: #1abc9c;
+    color: #ecf0f1;
+  }
+  
+  /* Styles for action buttons */
+  .action-buttons {
+    display: flex;
+    justify-content: space-between; /* Spread buttons to left and right */
+    margin-top: 20px; /* Add space above buttons */
+    padding: 0 10px; /* Optional padding to prevent sticking to edges */
+  }
+  
+  .action-button {
+    text-decoration: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    border-radius: 5px;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between icon and text */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .action-button:hover {
+    transform: scale(1.05); /* Slight scaling effect on hover */
+  }
+  
+  /* Styles for specific buttons */
+  .diary-entry {
+    background-color: #3498db; /* Blue */
+  }
+  
+  .diary-entry:hover {
+    background-color: #2980b9;
+  }
+  
+  .song-review {
+    background-color: #2ecc71; /* Green */
+  }
+  
+  .song-review:hover {
+    background-color: #27ae60;
+  }
+  
+  /* Icon styles */
+  .icon {
+    font-size: 20px; /* Adjust the icon size */
+  }
+  
