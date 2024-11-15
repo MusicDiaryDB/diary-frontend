@@ -1,0 +1,125 @@
+.container {
+    padding: 20px;
+    max-width: 400px;
+    margin: auto;
+}
+
+.container h2 {
+    text-align: center;
+    color: #333;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+.container p {
+    color: #555;
+    line-height: 1.6;
+    margin: 10px 0;
+}
+
+.visibility-dropdown {
+    margin-bottom: 20px;
+}
+
+.visibility-dropdown label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.visibility-dropdown select {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.date-selector {
+    margin-bottom: 20px;
+}
+
+.date-selector label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.date-selector input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.button-create {
+    background-color: blue;
+}
+
+.button-clear {
+    background-color: red;
+    margin-top: 10px;
+}
+
+.button:hover {
+    opacity: 0.9;
+}
+
+.status-message {
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+.status-success {
+    color: green;
+}
+
+.status-error {
+    color: red;
+}
+
+.report-header {
+    margin-top: 20px;
+    color: #333;
+}
+
+.report-header h3 {
+    margin: 10px 0;
+}
+
+.report-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.report-list li {
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.report-list strong {
+    display: block;
+    color: #333;
+    margin-bottom: 5px;
+}

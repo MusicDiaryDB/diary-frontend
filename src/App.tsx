@@ -14,6 +14,7 @@ import Reviews from "./pages/Reviews";
 import Graph from "./pages/Graph";
 import AdminBoard from "./pages/AdminBoard";
 import AdminMetrics from "./pages/AdminMetrics";
+import UserDiaryReportCreate from "./pages/UserDiaryReportCreate";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -37,6 +38,11 @@ function App() {
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/manage" element={<Management />} />
           <Route path="/user_friends/:userId" element={<FriendsList />} />
+
+          <Route
+            path="/:userId/reports/new"
+            element={<UserDiaryReportCreate />}
+          />
 
           <Route path="/admin/info-metrics" element={<AdminMetrics />} />
           <Route path="/admin/aggregate-metrics" element={<AdminBoard />} />

@@ -108,7 +108,7 @@ function AdminMetrics() {
 
   return (
     <div className="resultsContainer">
-      <h1 id="metricsHeader">MusicDiaryDB Info and Performance Metrics</h1>
+      <h1 id="metricsHeader">Database Info and Performance Metrics</h1>
       {results
         .slice()
         .sort((a, b) => {
