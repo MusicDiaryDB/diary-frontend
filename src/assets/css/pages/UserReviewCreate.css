@@ -1,0 +1,65 @@
+.container {
+    padding: 20px;
+    max-width: 400px;
+    margin: auto;
+}
+
+.container label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.container textarea,
+.container input,
+.container select {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+.container button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.container .button-submit {
+    background-color: blue;
+    margin-bottom: 10px;
+}
+
+.container .button-clear {
+    background-color: red;
+}
+
+.container button:hover {
+    opacity: 0.9;
+}
+
+.result-container {
+    margin-top: 20px;
+}
+
+.result-container h3 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.result-container pre {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow-x: auto;
+}

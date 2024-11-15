@@ -31,7 +31,6 @@ export const createUserDiaryReport = async function (
     res = resp.data;
   } catch (error) {
     console.log("Error creating report:", error);
-    throw error;
   }
 
   console.log(res);
