@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../../../assets/css/components/UserNavBar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencilAlt, faMusic } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faMusic, faHome } from '@fortawesome/free-solid-svg-icons';
 
 interface NavbarProps {
   userId: string;
@@ -18,17 +18,7 @@ const UserNavBar: React.FC<NavbarProps> = ({ userId }) => {
       <ul>
         <li>
           <Link to={`/${userId}/reports`} className="navbar-link">
-            Your Diary Entries
-          </Link>
-        </li>
-        <li>
-          <Link to={`/${userId}/friends`} className="navbar-link">
-            Your Friends
-          </Link>
-        </li>
-        <li>
-          <Link to={`/${userId}/reviews`} className="navbar-link">
-            Your Reviews
+            Reports
           </Link>
         </li>
         {/* Friends dropdown */}
@@ -37,30 +27,47 @@ const UserNavBar: React.FC<NavbarProps> = ({ userId }) => {
           {isDropdownOpen && (
             <div className="dropdown-menu">
               <Link to={`/${userId}/friends/entries`} className="dropdown-item">
-                Entries
+                Friends' Entries
               </Link>
               <Link to={`/${userId}/friends/reports`} className="dropdown-item">
-                Reports
+                Friends' Reports
               </Link>
               <Link to={`/${userId}/friends/reviews`} className="dropdown-item">
-                Reviews
+                Friends' Reviews
               </Link>
             </div>
           )}
         </li>
+        <li>
+          <Link to={`/${userId}/friends`} className="navbar-link">
+            Friends List
+          </Link>
+        </li>
+        <li>
+          <Link to={`/${userId}/reviews`} className="navbar-link">
+            Reviews
+          </Link>
+        </li>
       </ul>
-      {/* Button for making a Diary Entry */}
       <div className="action-buttons">
+        {/* Button for making a Diary Entry (left-aligned) */}
         <Link to={`/${userId}/reports/new`} className="action-button diary-entry">
-        <FontAwesomeIcon icon={faPencilAlt} className="icon" />
-          Create a New Diary Entry
+          <FontAwesomeIcon icon={faPencilAlt} className="icon" />
+          Make a Diary Entry
         </Link>
+        {/* Home icon link at the bottom */}
+        <div className="home-icon">
+            <Link to={`/${userId}/home`} className="navbar-link home-link">
+                <FontAwesomeIcon icon={faHome} className="icon" />
+            </Link>
+        </div>
+        {/* Button for making a Song Review (right-aligned) */}
         <Link to={`/${userId}/review/new`} className="action-button song-review">
-        <FontAwesomeIcon icon={faMusic} className="icon" />
-
-          Create a New Song Review
+          <FontAwesomeIcon icon={faMusic} className="icon" />
+          Make a Song Review
         </Link>
       </div>
+      
     </nav>
   );
 };
