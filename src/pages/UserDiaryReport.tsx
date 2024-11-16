@@ -61,8 +61,11 @@ const UserDiaryReport: React.FC = function () {
           <div className="result-list">
             {displayEntries.map((entry: DisplayEntry) => (
               <div className="result-container" key={entry.EntryID}>
-                <strong>Song:</strong> {entry.Name}
-                <br />
+                <h3>
+                  Song: <em>{entry.SongName}</em>
+                </h3>
+                <h4>Artist: {entry.ArtistName}</h4>
+                <h4>Album: {entry.AlbumName}</h4>
                 <strong>Date:</strong>{" "}
                 {new Date(entry.Date).toLocaleDateString()} <br />
                 <strong>Description:</strong> {entry.Description}

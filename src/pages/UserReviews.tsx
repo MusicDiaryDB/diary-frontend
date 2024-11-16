@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import {
   getUserReviews,
   DisplayReview,
-  fetchReviewSongNames,
+  getReviewInfo,
 } from "../assets/services/diary/userReviews";
 import "../assets/css/pages/UserReviews.css";
 
@@ -14,8 +14,13 @@ const UserReviews: React.FC = () => {
   const fetchReviews = useCallback(async () => {
     if (!userId) return;
     try {
-      const reviews = await getUserReviews(Number(userId));
-      const res = await fetchReviewSongNames(reviews);
+      const revs = await getUserReviews(Number(userId));
+      const res = await Promise.all(
+        revs.map(async (rev) => {
+          const reviewInfo = await getReviewInfo(rev.ReviewID);
+          return reviewInfo;
+        }),
+      );
       setReviews(res);
     } catch (error) {
       console.error("Error fetching user reviews:", error);
@@ -36,13 +41,14 @@ const UserReviews: React.FC = () => {
         {reviews.length > 0 ? (
           reviews.map((review) => (
             <div key={review.ReviewID} className="result-container">
-              <h3>Song: {review.SongName}</h3>
-              <p>
-                <strong>{review.Contents}</strong>
-              </p>
-              <p>
-                <strong>Visibility:</strong> {review.Visibility}
-              </p>
+              <h3>
+                Song: <em>{review.SongName}</em>
+              </h3>
+              <h4>Artist: {review.ArtistName}</h4>
+              <h4>Album: {review.AlbumName}</h4>
+              <strong>Review:</strong> {review.Contents}
+              <br />
+              <strong>Visibility:</strong> {review.Visibility}
             </div>
           ))
         ) : (

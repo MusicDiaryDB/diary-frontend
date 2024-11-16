@@ -76,3 +76,11 @@
 .metricContent p {
     margin: 0.5rem 0;
 }
+
+.loading {
+    text-align: center;
+}
+
+.loading-text {
+    color: #555;
+}
