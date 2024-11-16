@@ -43,6 +43,11 @@ function Management() {
     desc: "View aggregated metrics about database",
     route: "/admin/aggregate-metrics",
   };
+  const aggregateMetricsGraphCard = {
+    tableName: "Database Aggregate Metrics (Graphs)",
+    desc: "View graphs of some aggregated metrics about database",
+    route: "/admin/aggregate-graphs",
+  };
 
   return (
     <div className="managementPage">
@@ -98,6 +103,22 @@ function Management() {
           </CardContent>
           <CardActions>
             <Link to={aggregateMetricsCard.route}>
+              <Button size="small">View</Button>
+            </Link>
+          </CardActions>
+        </Card>
+
+        <Card sx={{ width: 345 }}>
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {aggregateMetricsGraphCard.tableName}
+            </Typography>
+            <Typography variant="body2" sx={{ color: "text.secondary" }}>
+              {aggregateMetricsGraphCard.desc}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Link to={aggregateMetricsGraphCard.route}>
               <Button size="small">View</Button>
             </Link>
           </CardActions>
