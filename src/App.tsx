@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import AppHeader from "./pages/components/layout/AppHeader";
 import { useParams, Outlet } from "react-router-dom";
 import Home from "./pages/Home";
@@ -21,6 +26,8 @@ import UserReviewCreate from "./pages/UserReviewCreate";
 import UserReviews from "./pages/UserReviews";
 import LandingPage from "./pages/Landing";
 import AdminNavBar from "./pages/components/layout/AdminNavBar";
+import UserDiaryReports from "./pages/UserDiaryReports";
+import UserDiaryReport from "./pages/UserDiaryReport";
 
 // Helper function to determine if the current route is an admin route
 const isAdminRoute = (pathname: string) => {
@@ -67,8 +74,10 @@ const MainWrapper = () => {
           <Route path="home" element={<Home />} />
           <Route path="friends" element={<FriendsList />} />
           <Route path="reviews" element={<UserReviews />} />
+          <Route path="reports" element={<UserDiaryReports />} />
           <Route path="reports/new" element={<UserDiaryReportCreate />} />
           <Route path="review/new" element={<UserReviewCreate />} />
+          <Route path="report/:reportId" element={<UserDiaryReport />} />
         </Route>
 
         {/* General pages */}
