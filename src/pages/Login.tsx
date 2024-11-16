@@ -42,7 +42,7 @@ function Login() {
           // TODO: login validation
           getUserByUsername(username)
             .then((res) => {
-              console.log("already exists");
+              console.log("user already exists");
               sessionStorage.setItem("username", res.Username);
               sessionStorage.setItem("user_id", res.UserId);
               // @ts-ignore

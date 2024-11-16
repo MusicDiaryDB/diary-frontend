@@ -2,6 +2,7 @@ import {PossibleSong} from "../../models/entry";
 import {diaryClient} from "../axios";
 import {getSongDetials} from "../genius";
 import {addAlbum, addArtist, addSong, getAlbumByName, getArtistbyName, getSongByName} from "./song";
+import { getUserByUsername } from "./user";
 
 const getAllSongDetails = async (possibleSongs: PossibleSong[]) => {
     let deets: any[] = []
@@ -29,13 +30,9 @@ const getSongsAlreadyStored = async (songDetails: SongDetail[]) => {
 
 const addNewSongs = async (songIds: string[], songsNotStored: SongDetail[]) => {
     let ids = [...songIds]
-    console.log("in here weporu whiskey")
-    console.log(songIds)
-    console.log(songsNotStored)
     for (let i = 0; i< songsNotStored.length;i++){
 
         const response = await addSongProperlyWithGeniusDetials(songsNotStored[i])
-        console.log(response)
         // @ts-ignore
         ids.push(response.songId)
     }
@@ -64,6 +61,9 @@ export const makeEntries = async (
     description: string,
     visibility: string
 ) => {
+    let username = sessionStorage.getItem("username")
+    // @ts-ignore
+    const user = await getUserByUsername(username)
 
     //get all song details from genius
     getAllSongDetails(possibleSongs)
@@ -75,31 +75,21 @@ export const makeEntries = async (
                 .then((response) => {
                     console.log(response)
                     addNewSongs(response.songIds, response.songsNotStored)
-                        .then((res) => {
-                            console.log(res)
+                        .then(async (songIds) => {
+                            for (let i = 0; i < songIds.length; i++) {
+                                const form = new FormData()
+                                form.append("date", new Date().toJSON().slice(0, 10))
+                                form.append("description", description)
+                                form.append("visibility", visibility)
+                                // @ts-ignore
+                                form.append("userId", user.UserID)
+                                form.append("songId", songIds[i])
+                                // const response =
+                                    await diaryClient.post("/entry", form)
+                            }
                         })
                 })
         })
-
-    // const username = sessionStorage.getItem("username") || ""
-    // console.log("Entry Song Ids")
-    // console.log(entrySongsIds)
-    // entrySongsIds.map(async (eSong) => {
-    //   try {
-    //     const form = new FormData()
-    //     form.append("date", new Date().toJSON().slice(0, 10))
-    //     form.append("description", description)
-    //     form.append("visibility", visibility)
-    //     form.append("userId", username)
-    //     form.append("songId", eSong.toString())
-    //     const response = await diaryClient.post("/entry", form)
-    //     console.log(response)
-    //   } catch (e) {
-    //     console.error(e)
-    //     throw e
-    //   }
-    // })
-
 }
 
 
