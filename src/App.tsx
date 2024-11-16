@@ -89,6 +89,11 @@ const MainWrapper = () => {
           <Route path="review/new" element={<UserReviewCreate />} />
           <Route path="report/:reportId" element={<UserDiaryReport />} />
 
+          <Route
+            path="friends/reports/report/:reportId"
+            element={<UserDiaryReport />}
+          />
+
           <Route path="music/all" element={<MusicCardsPage />} />
           <Route path="music/songs" element={<SongsPage />} />
           <Route path="music/albums" element={<AlbumsPage />} />

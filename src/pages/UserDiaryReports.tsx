@@ -34,7 +34,7 @@ const UserDiaryReports: React.FC = () => {
         {reports.length > 0 ? (
           reports.map((report) => (
             <div key={report.ReportID} className="result-container report-card">
-              <a href={"report/" + report.ReportID.toString()}>
+              <a href={`report/${report.ReportID.toString()}`}>
                 <h3>{report.Date}</h3>
                 <p>
                   <strong>{report.Description}</strong>
