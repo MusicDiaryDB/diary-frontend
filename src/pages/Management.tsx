@@ -15,20 +15,17 @@ function Management() {
     {
       tableName: "Users",
       desc: "You may create new users or alter details for existing users here",
-      addNewRoute: "/users",
-      manageRoute: "/users",
+      route: "/users",
     },
     {
       tableName: "Songs & Albums",
       desc: "Manage songs here",
-      addNewRoute: "/songs_albums",
-      manageRoute: "/songs_albums",
+      route: "/songs_albums",
     },
     {
       tableName: "Reviews",
       desc: "Manage reviews here",
-      addNewRoute: "/reviews",
-      manageRoute: "/reviews",
+      route: "/reviews",
     },
   ];
 
@@ -48,6 +45,7 @@ function Management() {
     desc: "View graphs of some aggregated metrics about database",
     route: "/admin/aggregate-graphs",
   };
+  // TODO: management pages for entries, reports, reviews
 
   return (
     <div className="managementPage">
@@ -63,11 +61,7 @@ function Management() {
               </Typography>
             </CardContent>
             <CardActions>
-              <Link to={cardData.addNewRoute}>
-                <Button size="small">Add New</Button>
-              </Link>
-
-              <Link to={cardData.manageRoute}>
+              <Link to={cardData.route}>
                 <Button size="small">Manage</Button>
               </Link>
             </CardActions>
