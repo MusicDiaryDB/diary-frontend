@@ -1,0 +1,16 @@
+.registerPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+  }
+  
+  .registerField {
+    margin: 10px 0;
+    width: 300px;
+  }
+  
+  .loginField {
+    margin-top: 20px;
+  }
+  

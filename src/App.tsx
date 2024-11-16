@@ -6,6 +6,7 @@ import AppFooter from "./pages/components/layout/AppFooter";
 import Login from "./pages/Login";
 import DiaryEntries from "./pages/DiaryEntries";
 import Management from "./pages/Management";
+import Register from "./pages/Register";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import SongsAlbums from "./pages/SongsAlbums";
 import FriendsList from "./pages/FriendsList";
@@ -55,6 +56,7 @@ function App() {
           <Route path="/admin/aggregate-graph" element={<Graph />} />
 
           <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="*" element={<div>Page Not Found</div>} />
         </Routes>
 

@@ -15,9 +15,14 @@ export const createUser = async (
     form.append("isAdmin", (isAdmin == null ? false : isAdmin).toString());
     console.log(form);
 
-    const response = await diaryClient.post("/user", form);
+    const response = await diaryClient.post("/user/", form, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    
     console.log(response.data);
-    return response.data;
+    return response;
   } catch (err) {
     console.error("Error creating user", err);
     throw err;
