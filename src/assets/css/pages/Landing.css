@@ -1,38 +1,77 @@
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes waveMove {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
 .landing-page {
-    background: linear-gradient(135deg, #6a11cb, #2575fc); /* Gradient background */
-    height: 100vh; /* Full screen height */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-  }
-  
-  .content {
-    text-align: center;
-    padding: 2rem;
-  }
-  
-  .headline {
-    font-size: 4rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  
-  .subheadline {
-    font-size: 2rem;
-    margin-bottom: 30px;
-  }
-  
-  .cta-button {
-    padding: 15px 30px;
-    font-size: 1.2rem;
-    text-transform: none;
-    border-radius: 30px;
-    background-color: #2575fc;
-    transition: background-color 0.3s ease;
-  }
-  
-  .cta-button:hover {
-    background-color: #6a11cb;
-  }
-  
+  position: relative;
+  background: linear-gradient(135deg, #3d0165, #0413c1); /* Dark purple to cool blue gradient */
+  background-size: 300% 300%; /* Smooth and seamless scrolling */
+  height: 100vh; /* Full screen height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  animation: gradientShift 20s ease infinite; /* Continuous subtle animation */
+  overflow: hidden;
+}
+
+.landing-page::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 200%;
+  height: 150px; /* Increased height for better visibility */
+  background: url('https://www.transparenttextures.com/patterns/wave-pattern.png') repeat-x;
+  transform: translateY(-50%);
+  animation: waveMove 5s linear infinite;
+  opacity: 0.7; /* Increased opacity for better visibility */
+  z-index: 0;
+}
+
+.content {
+  text-align: center;
+  padding: 2rem;
+  z-index: 1;
+}
+
+.headline {
+  font-size: 4rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.subheadline {
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+.cta-button {
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  text-transform: none;
+  border-radius: 30px;
+  background-color: #2575fc;
+  transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #6a11cb;
+}

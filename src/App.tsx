@@ -1,6 +1,6 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import AppHeader from "./pages/components/layout/AppHeader";
-import { useParams, Outlet  } from 'react-router-dom';
+import { useParams, Outlet } from "react-router-dom";
 import Home from "./pages/Home";
 import Users from "./pages/Users";
 import AppFooter from "./pages/components/layout/AppFooter";
@@ -20,6 +20,17 @@ import UserDiaryReportCreate from "./pages/UserDiaryReportCreate";
 import UserReviewCreate from "./pages/UserReviewCreate";
 import UserReviews from "./pages/UserReviews";
 import LandingPage from "./pages/Landing";
+import AdminNavBar from "./pages/components/layout/AdminNavBar";
+
+// Helper function to determine if the current route is an admin route
+const isAdminRoute = (pathname: string) => {
+  return (
+    pathname.startsWith("/admin") ||
+    pathname === "/users" ||
+    pathname === "/songs_albums" ||
+    pathname === "/reviews"
+  );
+};
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -35,44 +46,55 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Router>
         <AppHeader />
-        
-        <Routes>
-          {/* User-specific routes */}
-          <Route path="/:userId/*" element={<NavbarWrapper />}>
-            <Route path="home" element={<Home />} />
-            <Route path="friends" element={<FriendsList />} />
-            <Route path="reviews" element={<UserReviews />} />
-            <Route path="reports/new" element={<UserDiaryReportCreate />} />
-            <Route path="review/new" element={<UserReviewCreate />} />
-            {/* Add any other user-specific pages */}
-          </Route>
-
-          {/* Routes for general pages */}
-          <Route path="/entries" element={<DiaryEntries />} />
-          <Route path="/users" element={<Users />} />
-          <Route path="/songs_albums" element={<SongsAlbums />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/reviews" element={<Reviews />} />
-          <Route path="/manage" element={<Management />} />
-          <Route path="/login" element={<Login />}/>
-
-          {/* admin specific endpoints */}
-          <Route path="/admin/info-metrics" element={<AdminMetrics />} />
-          <Route path="/admin/aggregate-metrics" element={<AdminBoard />} />
-          <Route path="/admin/aggregate-graph" element={<Graph />} />
-
-          <Route path="/" element={<LandingPage />} />
-          <Route path="*" element={<div>Page Not Found</div>} />
-        </Routes>
-
+        <MainWrapper />
         <AppFooter />
       </Router>
     </QueryClientProvider>
   );
 }
 
+const MainWrapper = () => {
+  const location = useLocation(); // Get the current route
+  const admin = isAdminRoute(location.pathname);
+
+  return (
+    <div>
+      {/* Conditionally render AdminNavBar or nothing */}
+      {admin ? <AdminNavBar /> : <Outlet />}
+      <Routes>
+        {/* User-specific routes */}
+        <Route path="/:userId/*" element={<NavbarWrapper />}>
+          <Route path="home" element={<Home />} />
+          <Route path="friends" element={<FriendsList />} />
+          <Route path="reviews" element={<UserReviews />} />
+          <Route path="reports/new" element={<UserDiaryReportCreate />} />
+          <Route path="review/new" element={<UserReviewCreate />} />
+        </Route>
+
+        {/* General pages */}
+        <Route path="/entries" element={<DiaryEntries />} />
+        <Route path="/users" element={<Users />} />
+        <Route path="/songs_albums" element={<SongsAlbums />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/reviews" element={<Reviews />} />
+        <Route path="/manage" element={<Management />} />
+        <Route path="/login" element={<Login />} />
+
+        {/* Admin-specific routes */}
+        <Route path="/admin/info-metrics" element={<AdminMetrics />} />
+        <Route path="/admin/aggregate-metrics" element={<AdminBoard />} />
+        <Route path="/admin/aggregate-graph" element={<Graph />} />
+
+        {/* Landing page and fallback */}
+        <Route path="/" element={<LandingPage />} />
+        <Route path="*" element={<div>Page Not Found</div>} />
+      </Routes>
+    </div>
+  );
+};
+
 const NavbarWrapper = () => {
-  const { userId } = useParams(); // gets user id
+  const { userId } = useParams(); // Get user id
   return (
     <div>
       {userId && <UserNavBar userId={userId} />}
