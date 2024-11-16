@@ -7,6 +7,7 @@ import {
   faMusic,
   faHome,
 } from "@fortawesome/free-solid-svg-icons";
+import AddFriendUser from "../layout/AddFriendUser"; 
 
 interface NavbarProps {
   userId: string;
@@ -22,6 +23,7 @@ const UserNavBar: React.FC<NavbarProps> = ({ userId }) => {
   return (
     <nav className="navbar">
       <ul>
+      <AddFriendUser />
         <li
           className="dropdown"
           onMouseEnter={toggleMusicDropdown}
@@ -94,6 +96,7 @@ const UserNavBar: React.FC<NavbarProps> = ({ userId }) => {
           <FontAwesomeIcon icon={faPencilAlt} className="icon" />
           Generate your Song Report
         </Link>
+
         {/* Home icon link at the bottom */}
         <div className="home-icon">
           <Link to={`/${userId}/home`} className="navbar-link home-link">
