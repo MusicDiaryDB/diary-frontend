@@ -1,9 +1,60 @@
+/* Styling for the Header */
 header {
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-}
-
-.loginButton {
-    text-decoration: none;
-}
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    max-height: 70px;
+  }
+  
+  /* Container for the logo and title */
+  .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+    height: 80px;
+  }
+  
+  /* Styling for the logo and title section */
+  .logo-title {
+    display: flex;
+    align-items: center;
+    cursor: pointer; /* Make the logo and title clickable */
+    transition: transform 0.2s ease-in-out; /* Smooth transition for scaling */
+  }
+  
+  /* Logo styling */
+  .logo {
+    width: 60px;
+    height: auto;
+    margin-right: 10px;
+  }
+  
+  /* Title styling */
+  .title {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  /* Hover effect for logo and title */
+  .logo-title:hover {
+    transform: scale(1.1); /* Increase size when hovered */
+  }
+  
+  /* Logout link styling */
+  .logout {
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Styling for the FontAwesome logout icon */
+  .logout .fa-sign-out-alt {
+    margin-right: 8px;
+    font-size: 1.3rem;
+  }
+  

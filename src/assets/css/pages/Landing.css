@@ -1,3 +1,21 @@
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 @keyframes gradientShift {
   0% {
     background-position: 0% 50%;
@@ -75,3 +93,36 @@
 .cta-button:hover {
   background-color: #6a11cb;
 }
+
+/* Square Styling */
+.square {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-color: rgba(0, 0, 255, 0.5); /* Initial blue color */
+  border-radius: 10px;
+  opacity: 0; /* Initially invisible */
+  animation: fadeOut 4s forwards, fadeIn 4s 4s forwards; /* Fade in and out animation */
+}
+
+.square:nth-child(odd) {
+  background-color: rgba(75, 0, 130, 0.5); /* Purple for odd squares */
+}
+
+.square:nth-child(even) {
+  background-color: rgba(30, 144, 255, 0.5); /* Lighter blue for even squares */
+}
+
+.fade-out-fade-in-0 {
+  animation: fadeOut 4s forwards, fadeIn 4s 4s forwards; /* Fade out and then fade in */
+}
+
+.fade-out-fade-in-1 {
+  animation: fadeOut 4s forwards, fadeIn 4s 4s forwards; /* Different animation key */
+}
+
+.fade-out-fade-in-2 {
+  animation: fadeOut 4s forwards, fadeIn 4s 4s forwards; /* Different animation key */
+}
+
+/* Add as many as needed for additional squares and unique animation classes */
