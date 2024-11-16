@@ -12,6 +12,8 @@ import SongsAlbums from "./pages/SongsAlbums";
 import FriendsList from "./pages/FriendsList";
 import Reviews from "./pages/Reviews";
 import UserNavBar from "./pages/components/layout/UserNavBar";
+import FriendReviews from "./pages/FriendsReviews";
+import FriendsDiaryEntries from "./pages/FriendsEntries";
 
 import Graph from "./pages/Graph";
 import AdminBoard from "./pages/AdminBoard";
@@ -67,6 +69,8 @@ const MainWrapper = () => {
           <Route path="home" element={<Home />} />
           <Route path="friends" element={<FriendsList />} />
           <Route path="reviews" element={<UserReviews />} />
+          <Route path="friends/reviews" element = {<FriendReviews />} />
+          <Route path="friends/entries" element = {<FriendsDiaryEntries />} />
           <Route path="reports/new" element={<UserDiaryReportCreate />} />
           <Route path="review/new" element={<UserReviewCreate />} />
         </Route>
