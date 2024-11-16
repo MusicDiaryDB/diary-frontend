@@ -15,7 +15,6 @@ import Management from "./pages/Management";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import SongsAlbums from "./pages/SongsAlbums";
 import FriendsList from "./pages/FriendsList";
-import Reviews from "./pages/Reviews";
 import UserNavBar from "./pages/components/layout/UserNavBar";
 import FriendReviews from "./pages/FriendsReviews";
 import FriendsDiaryEntries from "./pages/FriendsEntries";
@@ -35,6 +34,7 @@ import SongsPage from "./pages/Songs";
 import AlbumsPage from "./pages/Albums";
 import ArtistsPage from "./pages/Artists";
 import MusicCardsPage from "./pages/AllMusic";
+import AdminReviews from "./pages/AdminReviews";
 
 // Helper function to determine if the current route is an admin route
 const isAdminRoute = (pathname: string) => {
@@ -105,7 +105,7 @@ const MainWrapper = () => {
         <Route path="/login" element={<Login />} />
 
         {/* Admin-specific routes */}
-        <Route path="/reviews" element={<Reviews />} />
+        <Route path="/reviews" element={<AdminReviews />} />
         <Route path="/entries" element={<DiaryEntries />} />
         <Route path="/manage" element={<Management />} />
         <Route path="/admin/info-metrics" element={<AdminMetrics />} />
