@@ -39,7 +39,6 @@ function AppHeader() {
           <img src={getLogo()} alt="Music Diary Logo" className="logo" />
           <p className="title">MusicDiary</p>
         </div>
-
         {/* Logout */}
         <p
           onClick={() => {
