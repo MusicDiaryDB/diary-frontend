@@ -77,9 +77,9 @@ const MainWrapper = () => {
           <Route path="home" element={<Home />} />
           <Route path="friends" element={<FriendsList />} />
           <Route path="reviews" element={<UserReviews />} />
-          <Route path="friends/reviews" element = {<FriendReviews />} />
-          <Route path="friends/reports" element = {<FriendsDiaryReports />} />
-          <Route path="friends/entries" element = {<FriendsDiaryEntries />} />
+          <Route path="friends/reviews" element={<FriendReviews />} />
+          <Route path="friends/reports" element={<FriendsDiaryReports />} />
+          <Route path="friends/entries" element={<FriendsDiaryEntries />} />
           <Route path="reports" element={<UserDiaryReports />} />
           <Route path="reports/new" element={<UserDiaryReportCreate />} />
           <Route path="review/new" element={<UserReviewCreate />} />
@@ -98,7 +98,7 @@ const MainWrapper = () => {
         {/* Admin-specific routes */}
         <Route path="/admin/info-metrics" element={<AdminMetrics />} />
         <Route path="/admin/aggregate-metrics" element={<AdminBoard />} />
-        <Route path="/admin/aggregate-graph" element={<Graph />} />
+        <Route path="/admin/aggregate-graphs" element={<Graph />} />
 
         {/* Landing page and fallback */}
         <Route path="/" element={<LandingPage />} />
