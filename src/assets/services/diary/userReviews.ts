@@ -11,6 +11,8 @@ interface Review {
 
 export interface DisplayReview {
   SongName: string;
+  AlbumName: string;
+  ArtistName: string;
   Contents: string;
   Visibility: string;
   ReviewID: number;
@@ -48,6 +50,8 @@ export const createUserReview = async function (
       SongName: songName,
       Visibility: visibility,
       ReviewID: res.ReviewID,
+      AlbumName: "",
+      ArtistName: "",
     },
   };
 };
@@ -66,6 +70,23 @@ export const getUserReviews = async function (
   }
 };
 
+export const getReviewInfo = async function (
+  review_id: number,
+): Promise<DisplayReview> {
+  try {
+    const resp = await diaryClient.get(`/review/song/${review_id}`);
+    let res = resp.data.result;
+    if (res.length > 0) {
+      res = res[0];
+      res.ReviewID = review_id;
+    }
+    return res;
+  } catch (error) {
+    console.log("Error fetching review with ID:", review_id, error);
+    throw error;
+  }
+};
+
 export const fetchReviewSongNames = async function (
   reviews: Review[],
 ): Promise<DisplayReview[]> {
@@ -77,6 +98,8 @@ export const fetchReviewSongNames = async function (
         Contents: review.Contents,
         Visibility: review.Visibility,
         ReviewID: review.ReviewID,
+        ArtistName: "",
+        AlbumName: "",
       };
     }),
   );

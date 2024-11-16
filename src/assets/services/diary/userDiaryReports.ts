@@ -86,7 +86,7 @@ export const createUserDiaryReport = async function (
   endDate: string,
 ): Promise<{ reportId: number; filteredEntries: any[] }> {
   // Filter entries by date range
-  // FIX: date filtering not working correctly
+  // FIX: date filtering not working correctly (this is actually probably happening on the entry side?)
   const filteredEntries = await getUserDiaryEntries(userId, startDate, endDate);
   const entryIDs = getUserDiaryEntryIDs(filteredEntries);
 

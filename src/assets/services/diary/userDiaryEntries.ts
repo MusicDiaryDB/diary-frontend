@@ -12,7 +12,9 @@ export interface DisplayEntry {
   EntryID: number;
   Date: string;
   Description: string;
-  Name: string;
+  SongName: string;
+  AlbumName: string;
+  ArtistName: string;
   Visibility: string;
 }
 
