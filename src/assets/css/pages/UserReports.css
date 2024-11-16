@@ -1,0 +1,40 @@
+.container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.result-container {
+    flex: 1 0 calc(33.33% - 20px);
+    margin: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+.result-container h3 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.result-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -10px;
+    justify-content: space-between;
+}
+
+.result-container a {
+    text-decoration: none;
+}
+
+.report-card {
+    transition: transform 0.2s ease;
+}
+
+.report-card:hover {
+    transform: scale(var(--hover-scale, 1.02));
+}
