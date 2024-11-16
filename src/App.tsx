@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AppHeader from "./pages/components/layout/AppHeader";
-import { useParams, Outlet  } from 'react-router-dom';
+import { useParams, Outlet } from "react-router-dom";
 import Home from "./pages/Home";
 import Users from "./pages/Users";
 import AppFooter from "./pages/components/layout/AppFooter";
@@ -20,6 +20,7 @@ import UserDiaryReportCreate from "./pages/UserDiaryReportCreate";
 import UserReviewCreate from "./pages/UserReviewCreate";
 import UserReviews from "./pages/UserReviews";
 import LandingPage from "./pages/Landing";
+import UserDiaryReports from "./pages/UserDiaryReports";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -35,16 +36,17 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Router>
         <AppHeader />
-        
+
         <Routes>
-          {/* User-specific routes */}
+          {/* user specific pages */}
           <Route path="/:userId/*" element={<NavbarWrapper />}>
             <Route path="home" element={<Home />} />
             <Route path="friends" element={<FriendsList />} />
             <Route path="reviews" element={<UserReviews />} />
+            <Route path="reports" element={<UserDiaryReports />} />
             <Route path="reports/new" element={<UserDiaryReportCreate />} />
             <Route path="review/new" element={<UserReviewCreate />} />
-            {/* Add any other user-specific pages */}
+            {/* TODO: Add any other user-specific pages */}
           </Route>
 
           {/* Routes for general pages */}
@@ -54,7 +56,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/manage" element={<Management />} />
-          <Route path="/login" element={<Login />}/>
+          <Route path="/login" element={<Login />} />
 
           {/* admin specific endpoints */}
           <Route path="/admin/info-metrics" element={<AdminMetrics />} />

@@ -61,7 +61,7 @@ export const getUserReviews = async function (
     const res = resp.data.result;
     return res;
   } catch (error) {
-    console.log("Error fetching user entries:", error);
+    console.log("Error fetching user reviews:", error);
     throw error;
   }
 };

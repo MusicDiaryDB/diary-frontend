@@ -1,6 +1,41 @@
 import { diaryClient } from "../axios";
 import { getUserDiaryEntryIDs, getUserDiaryEntries } from "./userDiaryEntries";
 
+export interface DiaryReport {
+  Date: string;
+  Description: string;
+  ReportID: number;
+  UserID: number;
+  Visibility: string;
+}
+
+// get user diary report
+export const getUserDiaryReports = async function (
+  userId: number,
+): Promise<DiaryReport[]> {
+  try {
+    const resp = await diaryClient.get(`/report/user/${userId}`);
+    const res = resp.data.result;
+    return res;
+  } catch (error) {
+    console.log("Error fetching user reports:", error);
+    throw error;
+  }
+};
+
+export const getDiaryReportByID = async function (
+  reportId: number,
+): Promise<DiaryReport> {
+  try {
+    const resp = await diaryClient.get(`/report/${reportId}`);
+    const res = resp.data.result;
+    return res;
+  } catch (error) {
+    console.log(`Error fetching report with id ${reportId}:`, error);
+    throw error;
+  }
+};
+
 // create new report
 export const createUserDiaryReport = async function (
   visibility: string,
