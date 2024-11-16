@@ -15,6 +15,7 @@ import Reviews from "./pages/Reviews";
 import UserNavBar from "./pages/components/layout/UserNavBar";
 import FriendReviews from "./pages/FriendsReviews";
 import FriendsDiaryEntries from "./pages/FriendsEntries";
+import FriendsDiaryReports from "./pages/FriendsDiaryReports";
 
 import Graph from "./pages/Graph";
 import AdminBoard from "./pages/AdminBoard";
@@ -71,6 +72,7 @@ const MainWrapper = () => {
           <Route path="friends" element={<FriendsList />} />
           <Route path="reviews" element={<UserReviews />} />
           <Route path="friends/reviews" element = {<FriendReviews />} />
+          <Route path="friends/reports" element = {<FriendsDiaryReports />} />
           <Route path="friends/entries" element = {<FriendsDiaryEntries />} />
           <Route path="reports/new" element={<UserDiaryReportCreate />} />
           <Route path="review/new" element={<UserReviewCreate />} />
