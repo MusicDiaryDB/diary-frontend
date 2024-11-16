@@ -15,17 +15,22 @@ function Management() {
     {
       tableName: "Users",
       desc: "You may create new users or alter details for existing users here",
-      route: "/users",
+      route: "/admin/manage/users",
     },
     {
       tableName: "Songs & Albums",
       desc: "Manage songs here",
-      route: "/songs_albums",
+      route: "/admin/manage/songs_albums",
     },
     {
       tableName: "Reviews",
       desc: "Manage reviews here",
-      route: "/reviews",
+      route: "/admin/manage/reviews",
+    },
+    {
+      tableName: "Diary Reports",
+      desc: "Manage diary reports here",
+      route: "/admin/manage/reports",
     },
   ];
 
@@ -45,7 +50,6 @@ function Management() {
     desc: "View graphs of some aggregated metrics about database",
     route: "/admin/aggregate-graphs",
   };
-  // TODO: management pages for entries, reports, reviews
 
   return (
     <div className="managementPage">

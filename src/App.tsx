@@ -36,6 +36,7 @@ import AlbumsPage from "./pages/Albums";
 import ArtistsPage from "./pages/Artists";
 import MusicCardsPage from "./pages/AllMusic";
 import AdminReviews from "./pages/AdminReviews";
+import AdminReports from "./pages/AdminReports";
 
 // Helper function to determine if the current route is an admin route
 const isAdminRoute = (pathname: string) => {
@@ -77,6 +78,13 @@ const MainWrapper = () => {
       {/* Conditionally render AdminNavBar or nothing */}
       {admin ? <AdminNavBar /> : <Outlet />}
       <Routes>
+        {/* General pages */}
+        <Route path="/login" element={<Login />} />
+
+        {/* Landing page and fallback */}
+        <Route path="/" element={<LandingPage />} />
+        <Route path="*" element={<div>Page Not Found</div>} />
+
         {/* User-specific routes */}
         <Route path="/:userId/*" element={<NavbarWrapper />}>
           <Route path="home" element={<Home />} />
@@ -101,23 +109,16 @@ const MainWrapper = () => {
           <Route path="music/artists" element={<ArtistsPage />} />
         </Route>
 
-        {/* General pages */}
-        <Route path="/home" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-
         {/* Admin-specific routes */}
-        <Route path="/reviews" element={<AdminReviews />} />
-        <Route path="/entries" element={<DiaryEntries />} />
         <Route path="/manage" element={<Management />} />
+        <Route path="/admin/manage/reviews" element={<AdminReviews />} />
+        <Route path="/admin/manage/entries" element={<DiaryEntries />} />
+        <Route path="/admin/manage/users" element={<Users />} />
+        <Route path="/admin/manage/reports" element={<AdminReports />} />
+        <Route path="/admin/manage/songs_albums" element={<SongsAlbums />} />
         <Route path="/admin/info-metrics" element={<AdminMetrics />} />
         <Route path="/admin/aggregate-metrics" element={<AdminBoard />} />
         <Route path="/admin/aggregate-graphs" element={<Graph />} />
-        <Route path="/songs_albums" element={<SongsAlbums />} />
-        <Route path="/users" element={<Users />} />
-
-        {/* Landing page and fallback */}
-        <Route path="/" element={<LandingPage />} />
-        <Route path="*" element={<div>Page Not Found</div>} />
       </Routes>
     </div>
   );
