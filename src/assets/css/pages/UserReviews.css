@@ -26,3 +26,9 @@
     margin: -10px;
     justify-content: space-between;
 }
+
+
+.empty-result {
+    text-align: center;
+    color: #333;
+}
