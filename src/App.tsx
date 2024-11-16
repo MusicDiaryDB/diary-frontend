@@ -31,6 +31,10 @@ import LandingPage from "./pages/Landing";
 import AdminNavBar from "./pages/components/layout/AdminNavBar";
 import UserDiaryReports from "./pages/UserDiaryReports";
 import UserDiaryReport from "./pages/UserDiaryReport";
+import SongsPage from "./pages/Songs";
+import AlbumsPage from "./pages/Albums";
+import ArtistsPage from "./pages/Artists";
+import MusicCardsPage from "./pages/AllMusic";
 
 // Helper function to determine if the current route is an admin route
 const isAdminRoute = (pathname: string) => {
@@ -84,21 +88,26 @@ const MainWrapper = () => {
           <Route path="reports/new" element={<UserDiaryReportCreate />} />
           <Route path="review/new" element={<UserReviewCreate />} />
           <Route path="report/:reportId" element={<UserDiaryReport />} />
+
+          <Route path="music/all" element={<MusicCardsPage />} />
+          <Route path="music/songs" element={<SongsPage />} />
+          <Route path="music/albums" element={<AlbumsPage />} />
+          <Route path="music/artists" element={<ArtistsPage />} />
         </Route>
 
         {/* General pages */}
-        <Route path="/entries" element={<DiaryEntries />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/songs_albums" element={<SongsAlbums />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/reviews" element={<Reviews />} />
-        <Route path="/manage" element={<Management />} />
         <Route path="/login" element={<Login />} />
 
         {/* Admin-specific routes */}
+        <Route path="/reviews" element={<Reviews />} />
+        <Route path="/entries" element={<DiaryEntries />} />
+        <Route path="/manage" element={<Management />} />
         <Route path="/admin/info-metrics" element={<AdminMetrics />} />
         <Route path="/admin/aggregate-metrics" element={<AdminBoard />} />
         <Route path="/admin/aggregate-graphs" element={<Graph />} />
+        <Route path="/songs_albums" element={<SongsAlbums />} />
+        <Route path="/users" element={<Users />} />
 
         {/* Landing page and fallback */}
         <Route path="/" element={<LandingPage />} />
