@@ -1,0 +1,48 @@
+/* friendsTable.css */
+.friends-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .friends-table th,
+  .friends-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  .friends-table th {
+    background-color: #2575fc;
+    color: white;
+  }
+  
+  .friends-table tr:nth-child(even) {
+    background-color: #f4f4f4;
+  }
+  
+  .friends-table tr:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .friends-table td {
+    font-size: 1rem;
+    font-weight: normal;
+  }
+  
+  .friends-table th {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+  /* Example styling for the graph container */
+.graph-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+  }
+  
+  
