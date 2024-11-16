@@ -1,5 +1,9 @@
 import { diaryClient } from "../axios";
-import { getUserDiaryEntryIDs, getUserDiaryEntries } from "./userDiaryEntries";
+import {
+  getUserDiaryEntryIDs,
+  getUserDiaryEntries,
+  DisplayEntry,
+} from "./userDiaryEntries";
 
 export interface DiaryReport {
   Date: string;
@@ -9,11 +13,17 @@ export interface DiaryReport {
   Visibility: string;
 }
 
+interface ReportEntry {
+  EntryID: number;
+  ReportID: number;
+}
+
 // get user diary report
 export const getUserDiaryReports = async function (
   userId: number,
 ): Promise<DiaryReport[]> {
   try {
+    console.log(userId);
     const resp = await diaryClient.get(`/report/user/${userId}`);
     const res = resp.data.result;
     return res;
@@ -28,10 +38,42 @@ export const getDiaryReportByID = async function (
 ): Promise<DiaryReport> {
   try {
     const resp = await diaryClient.get(`/report/${reportId}`);
-    const res = resp.data.result;
+    const res = resp.data;
     return res;
   } catch (error) {
     console.log(`Error fetching report with id ${reportId}:`, error);
+    throw error;
+  }
+};
+
+export const getReportEntriesByReportID = async function (
+  reportId: number,
+): Promise<ReportEntry[]> {
+  try {
+    const resp = await diaryClient.get(`/report/${reportId}`);
+    const res = resp.data.result;
+    return res;
+  } catch (error) {
+    console.log(
+      `Error fetching entries for report with id ${reportId}:`,
+      error,
+    );
+    throw error;
+  }
+};
+
+export const getReportEntrySongs = async function (
+  reportId: number,
+): Promise<DisplayEntry[]> {
+  try {
+    const resp = await diaryClient.get(`/report/songs/${reportId}`);
+    const res = resp.data.result;
+    return res;
+  } catch (error) {
+    console.log(
+      `Error fetching entries for report with id ${reportId}:`,
+      error,
+    );
     throw error;
   }
 };
@@ -44,6 +86,7 @@ export const createUserDiaryReport = async function (
   endDate: string,
 ): Promise<{ reportId: number; filteredEntries: any[] }> {
   // Filter entries by date range
+  // FIX: date filtering not working correctly
   const filteredEntries = await getUserDiaryEntries(userId, startDate, endDate);
   const entryIDs = getUserDiaryEntryIDs(filteredEntries);
 
@@ -88,8 +131,6 @@ export const createUserDiaryReport = async function (
 
   return { reportId, filteredEntries };
 };
-
-export default createUserDiaryReport;
 
 export const renderDiaryEntries = (
   entries: Array<{
