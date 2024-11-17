@@ -44,6 +44,7 @@ const FriendsList: React.FC = () => {
     <div className="container">
       <h2>Your Friends</h2>
       <AddFriendUser />
+      <br />
 
       {friends.length === 0 ? (
         <p>You have no friends yet.</p>

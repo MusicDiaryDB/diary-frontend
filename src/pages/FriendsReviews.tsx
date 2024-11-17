@@ -1,97 +1,52 @@
-import React, { useEffect, useState } from 'react';
-import { fetchUserFriends, fetchUserReviews } from '../assets/services/friendService';
-import { useParams } from 'react-router-dom';
-
-interface Friend {
-  userId: number;
-  username: string;
-}
-
-interface Review {
-  reviewId: number;
-  songname: string;  
-  contents: string;
-  username: string;
-}
+import React, { useCallback, useEffect, useState } from "react";
+import {
+  FriendReview,
+  getFriendsReviews,
+} from "../assets/services/diary/userFriendReviews";
+import { useParams } from "react-router-dom";
 
 const FriendsList: React.FC = () => {
   const { userId } = useParams();
-  const [friends, setFriends] = useState<Friend[]>([]);
-  const [friendReviews, setFriendReviews] = useState<{ [key: string]: Review[] }>({});
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [reviews, setReviews] = useState<FriendReview[]>([]);
 
-  useEffect(() => {
-    const getFriendsAndReviews = async () => {
-      if (userId) {
-        try {
-          const friendsData = await fetchUserFriends(Number(userId));
-          setFriends(friendsData);
-
-          // Object to hold reviews mapped by each friend's username
-          const reviewsMap: { [key: string]: Review[] } = {};
-
-          for (const friend of friendsData) {
-            const friendReviewsData = await fetchUserReviews(friend.userId);
-
-            // Filter reviews for the current friend by matching username
-            const matchingReviews = friendReviewsData.filter(
-              (review: Review) => review.username === friend.username
-            );
-
-            reviewsMap[friend.username] = matchingReviews;
-          }
-
-          setFriendReviews(reviewsMap);
-
-        } catch (err) {
-          setError('Could not fetch friends or reviews.');
-        } finally {
-          setLoading(false);
-        }
-      }
-    };
-
-    getFriendsAndReviews();
+  const fetchReviews = useCallback(async () => {
+    if (!userId) return;
+    try {
+      const revs = await getFriendsReviews(Number(userId));
+      setReviews(revs);
+    } catch (error) {
+      console.error("Error fetching user reviews:", error);
+    }
   }, [userId]);
 
-  if (loading) {
-    return <div>Fetching your friends and reviews!</div>;
-  }
-
-  if (error) {
-    return <div>Issue with fetching your friends or reviews. Error: {error}</div>;
-  }
+  useEffect(() => {
+    fetchReviews();
+  }, [fetchReviews]);
 
   return (
-    <div>
-      <h2>Your Friends</h2>
-      {friends.length === 0 ? (
-        <p>You have no friends yet.</p>
-      ) : (
-        
-        <ul>
-          {friends.map((friend) => (
-            <li key={friend.userId}>
-              {friend.username}
-              <ul>
-                {friendReviews[friend.username] && friendReviews[friend.username].length > 0 ? (
-                  friendReviews[friend.username].map((review: Review) => {
-                    console.log("Review data in map:", review); 
-                    return (
-                      <li key={review.reviewId}>
-                        <strong>Song:</strong> {review.songname || "No song name available"} - {review.contents}
-                      </li>
-                    );
-                  })
-                ) : (
-                  <p>No reviews available for this friend.</p>
-                )}
-              </ul>
-            </li>
-          ))}
-        </ul>
-      )}
+    <div className="container">
+      <h2>Your Friends' Reviews</h2>
+
+      <div className="button-container">
+        <button className="button-common button-submit" onClick={fetchReviews}>
+          Refresh Reviews
+        </button>
+      </div>
+      <div className="result-list">
+        {reviews.length > 0 ? (
+          reviews.map((review) => (
+            <div key={review.reviewid} className="result-container">
+              <h3>Friend: {review.friendusername}</h3>
+              <strong>Song: </strong>
+              <em>{review.songname}</em>
+              <br />
+              <strong>Review:</strong> {review.contents}
+            </div>
+          ))
+        ) : (
+          <p>No reviews found.</p>
+        )}
+      </div>
     </div>
   );
 };
