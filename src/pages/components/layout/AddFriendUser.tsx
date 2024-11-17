@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import "../../../assets/css/components/layout/AddUser.css"; 
-import { addFriend } from "../../../assets/services/adduser"; 
+import "../../../assets/css/components/layout/AddUser.css";
+import { addFriend } from "../../../assets/services/adduser";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserPlus } from "@fortawesome/free-solid-svg-icons"; 
+import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 
 const AddFriendUser: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -36,11 +36,11 @@ const AddFriendUser: React.FC = () => {
     }
 
     try {
-      const response = await addFriend(userId, username); 
+      const response = await addFriend(userId, username);
       if (response.success) {
         setSuccessMessage(`User '${username}' added successfully.`);
-        setUsername(""); 
-        setTimeout(() => setSuccessMessage(""), 3000); 
+        setUsername("");
+        setTimeout(() => setSuccessMessage(""), 3000);
       } else {
         setErrorMessage(response.error || "Failed to add user.");
       }
@@ -51,14 +51,17 @@ const AddFriendUser: React.FC = () => {
 
   return (
     <div>
-      <button
-        className="add-friend-btn"
-        onClick={() => setIsModalOpen(true)}
-      >
-        <FontAwesomeIcon icon={faUserPlus} className="icon" /> 
+      <button className="add-friend-btn" onClick={() => setIsModalOpen(true)}>
+        <FontAwesomeIcon icon={faUserPlus} className="icon" />
+        {"     "}Add Friend
       </button>
 
-      {isModalOpen && <div className="modal-overlay" onClick={() => setIsModalOpen(false)}></div>}
+      {isModalOpen && (
+        <div
+          className="modal-overlay"
+          onClick={() => setIsModalOpen(false)}
+        ></div>
+      )}
       {isModalOpen && (
         <div className="add-user-modal show">
           <div className="modal-header">Add Friend</div>
@@ -78,7 +81,9 @@ const AddFriendUser: React.FC = () => {
 
           {/* Error or Success Messages */}
           {errorMessage && <p className="error-message">{errorMessage}</p>}
-          {successMessage && <p className="success-message">{successMessage}</p>}
+          {successMessage && (
+            <p className="success-message">{successMessage}</p>
+          )}
         </div>
       )}
     </div>

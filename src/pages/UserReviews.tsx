@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   getUserReviews,
   DisplayReview,
@@ -34,9 +34,18 @@ const UserReviews: React.FC = () => {
   return (
     <div className="container">
       <h2>Your Reviews</h2>
-      <button className="button-submit" onClick={fetchReviews}>
-        Refresh Reviews
-      </button>
+
+      <div className="button-container">
+        <button className="button-common button-submit" onClick={fetchReviews}>
+          Refresh Reviews
+        </button>
+        <Link
+          to={`/user/${userId}/review/new`}
+          className="button-common button-generate"
+        >
+          Create Review
+        </Link>
+      </div>
       <div className="result-list">
         {reviews.length > 0 ? (
           reviews.map((review) => (

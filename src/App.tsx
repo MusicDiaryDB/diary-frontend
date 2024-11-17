@@ -85,7 +85,7 @@ const MainWrapper = () => {
         <Route path="*" element={<div>Page Not Found</div>} />
 
         {/* User-specific routes */}
-        <Route path="/:userId/*" element={<NavbarWrapper />}>
+        <Route path="/user/:userId/*" element={<NavbarWrapper />}>
           <Route path="home" element={<Home />} />
           <Route path="friends" element={<FriendsList />} />
           <Route path="reviews" element={<UserReviews />} />
