@@ -18,14 +18,19 @@ function Management() {
       route: "/admin/manage/users",
     },
     {
-      tableName: "Songs & Albums",
-      desc: "Manage songs here",
+      tableName: "Music",
+      desc: "Manage music here",
       route: "/admin/manage/songs_albums",
     },
     {
       tableName: "Reviews",
       desc: "Manage reviews here",
       route: "/admin/manage/reviews",
+    },
+    {
+      tableName: "Diary Entries",
+      desc: "Manage diary entries here",
+      route: "/admin/manage/entries",
     },
     {
       tableName: "Diary Reports",

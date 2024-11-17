@@ -10,7 +10,6 @@ import Home from "./pages/Home";
 import Users from "./pages/Users";
 import AppFooter from "./pages/components/layout/AppFooter";
 import Login from "./pages/Login";
-import DiaryEntries from "./pages/DiaryEntries";
 import Management from "./pages/Management";
 import Register from "./pages/Register";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -37,6 +36,8 @@ import ArtistsPage from "./pages/Artists";
 import MusicCardsPage from "./pages/AllMusic";
 import AdminReviews from "./pages/AdminReviews";
 import AdminReports from "./pages/AdminReports";
+import UserDiaryEntries from "./pages/UserDiaryEntries";
+import AdminEntries from "./pages/AdminEntries";
 
 // Helper function to determine if the current route is an admin route
 const isAdminRoute = (pathname: string) => {
@@ -97,6 +98,7 @@ const MainWrapper = () => {
           <Route path="reports/new" element={<UserDiaryReportCreate />} />
           <Route path="review/new" element={<UserReviewCreate />} />
           <Route path="report/:reportId" element={<UserDiaryReport />} />
+          <Route path="entries" element={<UserDiaryEntries />} />
 
           <Route
             path="friends/reports/report/:reportId"
@@ -112,7 +114,7 @@ const MainWrapper = () => {
         {/* Admin-specific routes */}
         <Route path="/manage" element={<Management />} />
         <Route path="/admin/manage/reviews" element={<AdminReviews />} />
-        <Route path="/admin/manage/entries" element={<DiaryEntries />} />
+        <Route path="/admin/manage/entries" element={<AdminEntries />} />
         <Route path="/admin/manage/users" element={<Users />} />
         <Route path="/admin/manage/reports" element={<AdminReports />} />
         <Route path="/admin/manage/songs_albums" element={<SongsAlbums />} />

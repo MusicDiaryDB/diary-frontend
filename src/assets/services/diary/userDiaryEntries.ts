@@ -18,6 +18,18 @@ export interface DisplayEntry {
   Visibility: string;
 }
 
+export const getUserDiaryEntriesDisplay = async function (
+  userId: number,
+): Promise<DisplayEntry[]> {
+  try {
+    const resp = await diaryClient.get(`/entries/user/${userId}`);
+    return resp.data.result;
+  } catch (error) {
+    console.log("Error fetching entries for user with id: ", userId, error);
+    throw error;
+  }
+};
+
 export const getDiaryEntryById = async function (
   entryId: number,
 ): Promise<DiaryEntry> {
