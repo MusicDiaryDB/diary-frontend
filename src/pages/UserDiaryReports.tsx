@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   getUserDiaryReports,
   DiaryReport,
@@ -27,9 +27,17 @@ const UserDiaryReports: React.FC = () => {
   return (
     <div className="container">
       <h2>Your Reports</h2>
-      <button className="button-submit" onClick={fetchReports}>
-        Refresh Reports
-      </button>
+      <div className="button-container">
+        <button className="button-common button-submit" onClick={fetchReports}>
+          Refresh Reports
+        </button>
+        <Link
+          to={`/user/${userId}/reports/new`}
+          className="button-common button-generate"
+        >
+          Generate Report
+        </Link>
+      </div>
       <div className="result-list">
         {reports.length > 0 ? (
           reports.map((report) => (

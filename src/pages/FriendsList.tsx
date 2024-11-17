@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { fetchUserFriends } from '../assets/services/friendService';
-import { useParams } from 'react-router-dom';
-import '../assets/css/pages/FriendsTable.css';
+import React, { useEffect, useState } from "react";
+import { fetchUserFriends } from "../assets/services/friendService";
+import { useParams } from "react-router-dom";
+import "../assets/css/pages/FriendsTable.css";
+import AddFriendUser from "./components/layout/AddFriendUser";
 
 interface Friend {
   userId: number;
@@ -21,7 +22,7 @@ const FriendsList: React.FC = () => {
           const friendsData = await fetchUserFriends(Number(userId));
           setFriends(friendsData);
         } catch (err) {
-          setError('Could not fetch friends.');
+          setError("Could not fetch friends.");
         } finally {
           setLoading(false);
         }
@@ -40,8 +41,10 @@ const FriendsList: React.FC = () => {
   }
 
   return (
-    <div>
+    <div className="container">
       <h2>Your Friends</h2>
+      <AddFriendUser />
+
       {friends.length === 0 ? (
         <p>You have no friends yet.</p>
       ) : (

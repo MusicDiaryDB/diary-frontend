@@ -15,17 +15,17 @@ const MusicCardsPage: React.FC = function () {
     {
       name: "Songs",
       description: "View all songs",
-      route: `/${userId}/music/songs`,
+      route: `/user/${userId}/music/songs`,
     },
     {
       name: "Albums",
       description: "View all albums",
-      route: `/${userId}/music/albums`,
+      route: `/user/${userId}/music/albums`,
     },
     {
       name: "Artists",
       description: "View all artists",
-      route: `/${userId}/music/artists`,
+      route: `/user/${userId}/music/artists`,
     },
   ];
 
