@@ -22,6 +22,11 @@ const AdminNavBar: React.FC = () => {
           </Link>
         </li>
         <li>
+          <Link to="/admin/manage/entries" className="admin-navbar-link">
+            Entries
+          </Link>
+        </li>
+        <li>
           <Link to="/admin/manage/reports" className="admin-navbar-link">
             Reports
           </Link>

@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../../../assets/css/components/layout/UserNavBar.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome } from "@fortawesome/free-solid-svg-icons";
-import AddFriendUser from "../layout/AddFriendUser";
 
 interface NavbarProps {
   userId: string;
@@ -22,6 +19,12 @@ const UserNavBar: React.FC<NavbarProps> = ({ userId }) => {
         <li>
           <Link to={`/user/${userId}/home`} className="navbar-link">
             Home
+          </Link>
+        </li>
+
+        <li>
+          <Link to={`/user/${userId}/entries`} className="navbar-link">
+            Entries
           </Link>
         </li>
 
