@@ -43,7 +43,7 @@ const FriendsList: React.FC = () => {
   return (
     <div className="container">
       <h2>Your Friends</h2>
-      <AddFriendUser />
+      <AddFriendUser userId={Number(userId) || 0} />
       <br />
 
       {friends.length === 0 ? (

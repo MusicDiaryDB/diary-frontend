@@ -4,25 +4,15 @@ import { addFriend } from "../../../assets/services/adduser";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 
-const AddFriendUser: React.FC = () => {
+interface AddFriendUserProps {
+  userId: number;
+}
+
+const AddFriendUser: React.FC<AddFriendUserProps> = ({ userId }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [username, setUsername] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  const [userId, setUserId] = useState<number | null>(null);
-
-  useEffect(() => {
-    const fetchUserId = async () => {
-      const storedUserId = window.location.pathname.split("/")[1]; // Get userId from URL
-      if (storedUserId) {
-        setUserId(Number(storedUserId));
-      } else {
-        setErrorMessage("User not authenticated.");
-      }
-    };
-
-    fetchUserId();
-  }, []);
 
   const handleAddFriend = async () => {
     if (!userId) {
