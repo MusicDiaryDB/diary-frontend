@@ -13,13 +13,22 @@ export const fetchUserInsights = async (userId: number) => {
 
     const [minEntriesResponse, maxEntriesResponse, avgEntriesResponse] =
       await Promise.all(
-        endpoints.map((endpoint) => axios.get(`${API_URL}${endpoint}`))
+        endpoints.map((endpoint) => axios.get(`${API_URL}${endpoint}`)),
       );
 
     return [
-      { metric: "Minimum Entries Per Report", value: minEntriesResponse.data.value },
-      { metric: "Maximum Entries Per Report", value: maxEntriesResponse.data.value },
-      { metric: "Average Entries Per Report", value: avgEntriesResponse.data.value },
+      {
+        metric: "Minimum Entries Per Report",
+        value: minEntriesResponse.data.min_entries,
+      },
+      {
+        metric: "Maximum Entries Per Report",
+        value: maxEntriesResponse.data.max_entries,
+      },
+      {
+        metric: "Average Entries Per Report",
+        value: avgEntriesResponse.data.avg_entries,
+      },
     ];
   } catch (error) {
     console.error("Error fetching user insights:", error);
