@@ -1,25 +1,25 @@
 import { useState, useEffect } from 'react';
-import { fetchTotalUsers, fetchAvgVisibilityEntries, fetchReviewsPerSong, fetchEntriesByDate, fetchFriendCounts, fetchVisibilityCountEntries, fetchMostReviewedSongs } from '../assets/services/adminMetricService';
+import { fetchTotalUsers, fetchAvgNumEntries, fetchReviewsPerSong, fetchEntriesByDate, fetchFriendCounts, fetchVisibilityCountEntries, fetchMostReviewedSongs } from '../assets/services/adminMetricService';
 import { CircularProgress, Typography, Box, Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 
 const AdminMetric = () => {
   const [totalUsers, setTotalUsers] = useState<number | null>(null);
-  const [avgVisibilityEntries, setAvgVisibilityEntries] = useState<number | null>(null);
-  const [reviewsPerSong, setReviewsPerSong] = useState<any[]>([]); // Adjust based on the structure of the data
+  const [avgNumEntries, setAvgNumEntries] = useState<number | null>(null);
+  const [reviewsPerSong, setReviewsPerSong] = useState<any[]>([]);
   const [entriesByDate, setEntriesByDate] = useState<any[]>([]);
   const [friendCounts, setFriendCounts] = useState<any[]>([]);
   const [visibilityCountEntries, setVisibilityCountEntries] = useState<any[]>([]);
   const [mostReviewedSongs, setMostReviewedSongs] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true); // New loading state
 
   useEffect(() => {
-    // Fetching the data for each report ALL AT ONCE YIPPEEE
     const fetchData = async () => {
       try {
         const totalUsersData = await fetchTotalUsers();
         setTotalUsers(totalUsersData.total_users);
 
-        const avgVisibilityEntriesData = await fetchAvgVisibilityEntries();
-        setAvgVisibilityEntries(avgVisibilityEntriesData.avg_public_entries);
+        const avgNumEntriesData = await fetchAvgNumEntries();
+        setAvgNumEntries(Math.round(avgNumEntriesData.avg_entries_per_user * 100) / 100);
 
         const reviewsPerSongData = await fetchReviewsPerSong();
         setReviewsPerSong(reviewsPerSongData);
@@ -35,20 +35,22 @@ const AdminMetric = () => {
 
         const mostReviewedSongsData = await fetchMostReviewedSongs();
         setMostReviewedSongs(mostReviewedSongsData);
+        
+        setLoading(false); // Set loading to false once data is fetched
       } catch (error) {
         console.error('Error fetching admin metrics data:', error);
+        setLoading(false); // Ensure loading is set to false even if there's an error
       }
     };
 
     fetchData();
   }, []);
 
-  if (!totalUsers || !avgVisibilityEntries || !reviewsPerSong.length) {
-    return <CircularProgress />;
+  if (loading) {
+    return <CircularProgress />; // Show loading spinner while fetching data
   }
 
   return (
-    // I used mainly typography for manual adjusting the CSS. its ugly, but thanks to chatgpt, i can figure it out once, and hten replicate it a million times
     <Box sx={{ maxWidth: '1200px', margin: '0 auto', padding: '20px' }}>
       <Typography variant="h4" align="center" gutterBottom>
         Admin Metrics Dashboard
@@ -66,8 +68,8 @@ const AdminMetric = () => {
         {/* Average Visibility */}
         <Grid item xs={12} sm={6} md={4}>
           <Box sx={{ textAlign: 'center' }}>
-            <Typography variant="h6">Average Visibility of Entries (Public)</Typography>
-            <Typography variant="h4">{avgVisibilityEntries}%</Typography>
+            <Typography variant="h6">Average Number of Entries Per User</Typography>
+            <Typography variant="h4">{avgNumEntries}</Typography>
           </Box>
         </Grid>
       </Grid>

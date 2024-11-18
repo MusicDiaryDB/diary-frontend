@@ -9,9 +9,10 @@ export const fetchUserInsights = async (userId: number) => {
       `/report/min_entries_per_report/${userId}`,
       `/report/max_entries_per_report/${userId}`,
       `/report/avg_entries_per_report/${userId}`,
+      `/report/total_entries_and_reports/${userId}`, 
     ];
 
-    const [minEntriesResponse, maxEntriesResponse, avgEntriesResponse] =
+    const [minEntriesResponse, maxEntriesResponse, avgEntriesResponse, totalEntriesReportsResponse] =
       await Promise.all(
         endpoints.map((endpoint) => axios.get(`${API_URL}${endpoint}`)),
       );
@@ -27,7 +28,11 @@ export const fetchUserInsights = async (userId: number) => {
       },
       {
         metric: "Average Entries Per Report",
-        value: avgEntriesResponse.data.avg_entries,
+        value: Math.round(avgEntriesResponse.data.avg_entries * 100) / 100,
+      },
+      {
+        metric: "Total Number of Entries and Reports Combined",  
+        value: totalEntriesReportsResponse.data.total_entries_reports,
       },
     ];
   } catch (error) {
