@@ -10,6 +10,8 @@ import Home from "./pages/Home";
 import Users from "./pages/Users";
 import AppFooter from "./pages/components/layout/AppFooter";
 import Login from "./pages/Login";
+// import Registration from "./pages/Registration"
+import UserSettings from "./pages/UserSettings";
 import Management from "./pages/Management";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import SongsAlbums from "./pages/SongsAlbums";
@@ -18,8 +20,6 @@ import UserNavBar from "./pages/components/layout/UserNavBar";
 import FriendReviews from "./pages/FriendsReviews";
 import FriendsDiaryEntries from "./pages/FriendsEntries";
 import FriendsDiaryReports from "./pages/FriendsDiaryReports";
-import UserInsights from "./pages/UserInsights";
-
 import Graph from "./pages/Graph";
 import AdminBoard from "./pages/AdminBoard";
 import AdminMetrics from "./pages/AdminMetrics";
@@ -81,6 +81,7 @@ const MainWrapper = () => {
       <Routes>
         {/* General pages */}
         <Route path="/login" element={<Login />} />
+        
 
         {/* Landing page and fallback */}
         <Route path="/" element={<LandingPage />} />
@@ -99,8 +100,7 @@ const MainWrapper = () => {
           <Route path="review/new" element={<UserReviewCreate />} />
           <Route path="report/:reportId" element={<UserDiaryReport />} />
           <Route path="entries" element={<UserDiaryEntries />} />
-          <Route path="insights" element = {<UserInsights/>}/>
-
+          <Route path="settings" element={<UserSettings />} />
           <Route
             path="friends/reports/report/:reportId"
             element={<UserDiaryReport />}
