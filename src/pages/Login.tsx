@@ -1,7 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { Button, TextField, Modal, Box } from "@mui/material";
+import { Button, TextField, Modal, Box } from "@mui/material";
 import "../assets/css/pages/Login.css";
 import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { diaryClient } from "../assets/services/axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { diaryClient } from "../assets/services/axios";
@@ -9,6 +13,9 @@ import { diaryClient } from "../assets/services/axios";
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [adminUsername, setAdminUsername] = useState("");
+  const [adminPassword, setAdminPassword] = useState("");
+  const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
   const [adminUsername, setAdminUsername] = useState("");
   const [adminPassword, setAdminPassword] = useState("");
   const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
@@ -33,7 +40,10 @@ function Login() {
           sessionStorage.setItem("user_id", res.data.user_id);
           sessionStorage.setItem("isLoggedIn", "true");
           sessionStorage.setItem("isAdmin", res.data.is_admin ? "true" : "false");
-          navigate("/home");
+
+          // Redirect user to their specific home page
+          const userId = res.data.user_id;
+          navigate(`/user/${userId}/home`);
         }
       })
       .catch((error) => {
@@ -79,7 +89,6 @@ function Login() {
       });
   };
 
-  // Open or close admin modal
   const toggleAdminModal = () => {
     setIsAdminModalOpen(!isAdminModalOpen);
   };
@@ -159,13 +168,16 @@ function Login() {
         variant="standard"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
+        onChange={(e) => setUsername(e.target.value)}
       />
       <TextField
         id="user-password"
         variant="standard"
         label="Password"
         type="password"
+        type="password"
         value={password}
+        onChange={(e) => setPassword(e.target.value)}
         onChange={(e) => setPassword(e.target.value)}
       />
       <Button
@@ -180,12 +192,31 @@ function Login() {
         className="registerField"
         variant="contained"
         onClick={handleRegistration}
+        onClick={handleLogin}
       >
+        Login
+      </Button>
+
+      <Button
+        className="registerField"
+        variant="contained"
+        onClick={handleRegistration}
+      >
+        Register
         Register
       </Button>
 
       {/* Button to open admin login modal */}
+      {/* Button to open admin login modal */}
       <Button
+        className="adminLoginButton"
+        onClick={toggleAdminModal}
+        style={{
+          position: "fixed",
+          bottom: "20px",
+          right: "20px",
+          backgroundColor: "#f50057",
+          color: "white",
         className="adminLoginButton"
         onClick={toggleAdminModal}
         style={{
@@ -197,7 +228,57 @@ function Login() {
         }}
       >
         Admin Login
+        Admin Login
       </Button>
+
+      {/* Admin Login Modal */}
+      <Modal
+        open={isAdminModalOpen}
+        onClose={toggleAdminModal}
+        aria-labelledby="admin-login-modal"
+        aria-describedby="admin-login-modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 400,
+            bgcolor: "background.paper",
+            border: "2px solid #000",
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
+          <h2 id="admin-login-modal">Admin Login</h2>
+          <TextField
+            label="Admin Username"
+            fullWidth
+            margin="normal"
+            value={adminUsername}
+            onChange={(e) => setAdminUsername(e.target.value)}
+          />
+          <TextField
+            label="Admin Password"
+            type="password"
+            fullWidth
+            margin="normal"
+            value={adminPassword}
+            onChange={(e) => setAdminPassword(e.target.value)}
+          />
+          <Button
+            fullWidth
+            variant="contained"
+            onClick={handleAdminLogin}
+            style={{ marginTop: "20px" }}
+          >
+            Admin Login
+          </Button>
+        </Box>
+      </Modal>
+
+      <ToastContainer />
 
       {/* Admin Login Modal */}
       <Modal
@@ -250,5 +331,6 @@ function Login() {
     </div>
   );
 }
+
 
 export default Login;

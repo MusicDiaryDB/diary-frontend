@@ -1,3 +1,4 @@
+import axios from "axios";
 import { User } from "../../models/user";
 import { diaryClient } from "../axios";
 
@@ -87,6 +88,31 @@ export const updateUser = async (userData: User) => {
   } catch (err) {
     console.error("Error updating user", err);
     throw err;
+  }
+};
+
+export const updatePassword = async ({
+  userId,
+  oldPassword,
+  newPassword,
+}: {
+  userId: number;
+  oldPassword: string;
+  newPassword: string;
+}) => {
+  try {
+    const form = new FormData();
+    form.append("old_password", oldPassword);
+    form.append("new_password", newPassword);
+
+    const response = await diaryClient.put(`/user/${userId}/update-password`, form, {
+      withCredentials: true,
+    });
+
+    return response;
+  } catch (error) {
+    console.error("Error updating password:", error);
+    throw error;
   }
 };
 

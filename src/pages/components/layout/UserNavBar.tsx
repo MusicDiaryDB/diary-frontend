@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../../../assets/css/components/layout/UserNavBar.css";
+import { FaCog } from "react-icons/fa";
 
 interface NavbarProps {
   userId: string;
@@ -108,6 +109,11 @@ const UserNavBar: React.FC<NavbarProps> = ({ userId }) => {
               </Link>
             </div>
           )}
+        </li>
+        <li className="navbar-settings">
+          <Link to={`/user/${userId}/settings`} className="navbar-link">
+            <FaCog size={20} />
+          </Link>
         </li>
       </ul>
     </nav>
