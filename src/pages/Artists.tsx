@@ -1,9 +1,25 @@
 import React, { useEffect, useState, useCallback } from "react";
 import "../assets/css/pages/UserReviews.css";
-import { getAllArtists, DisplayArtist } from "../assets/services/diary/music";
+import {
+  getAllArtists,
+  DisplayArtist,
+  createArtist,
+} from "../assets/services/diary/music";
 
 const ArtistsPage: React.FC = function () {
   const [music, setMusic] = useState<DisplayArtist[]>([]);
+
+  const [artistName, setArtistName] = useState<string>("");
+
+  const handleCreateArtist = async () => {
+    if (!artistName.trim()) {
+      alert("Artist name cannot be empty");
+      return;
+    }
+    await createArtist(artistName);
+    setArtistName("");
+    fetchMusic();
+  };
 
   const fetchMusic = useCallback(async () => {
     try {
@@ -22,7 +38,7 @@ const ArtistsPage: React.FC = function () {
     <div className="container">
       <h2>All Artists</h2>
       <button className="button-submit" onClick={fetchMusic}>
-        Refresh albums
+        Refresh artists
       </button>
       <div className="result-list">
         {music.length > 0 ? (
@@ -35,8 +51,21 @@ const ArtistsPage: React.FC = function () {
             </div>
           ))
         ) : (
-          <p>No albums found.</p>
+          <p>No artists found.</p>
         )}
+      </div>
+      <div className="create-container">
+        <h3>Create New Artist</h3>
+        <input
+          type="text"
+          value={artistName}
+          onChange={(e) => setArtistName(e.target.value)}
+          placeholder="Enter artist name"
+          className="input-field"
+        />
+        <button className="button-create" onClick={handleCreateArtist}>
+          Create Artist
+        </button>
       </div>
     </div>
   );

@@ -55,3 +55,94 @@ export const getAllArtists = async function (): Promise<DisplayArtist[]> {
     throw error;
   }
 };
+
+export const addSong = async function (
+  songName: string,
+  albumName: string,
+  artistName: string,
+): Promise<void> {
+  try {
+    try {
+      await diaryClient.get(`/artist/${artistName}`);
+    } catch (error: any) {
+      await diaryClient.post(`/artist/`, {
+        name: artistName,
+      });
+    }
+
+    try {
+      await diaryClient.get(`/album/${albumName}`);
+    } catch (error: any) {
+      await diaryClient.post(`/album/${artistName}`, {
+        name: albumName,
+      });
+    }
+
+    const createSongResp = await diaryClient.post(`/song/${albumName}`, {
+      name: songName,
+    });
+    console.log("Song added successfully:", createSongResp.data);
+  } catch (error) {
+    console.error("Error adding song:", error);
+    throw error;
+  }
+};
+
+export const createAlbum = async function (
+  albumName: string,
+  artistName: string,
+): Promise<void> {
+  if (!albumName.trim() || !artistName.trim()) {
+    console.error("Album name and artist name cannot be empty.");
+    throw new Error("Album name and artist name cannot be empty.");
+  }
+
+  try {
+    try {
+      await diaryClient.get(`/artist/${artistName}`);
+    } catch (error: any) {
+      await diaryClient.post(`/artist/`, {
+        name: artistName,
+      });
+    }
+
+    try {
+      await diaryClient.get(`/album/${albumName}`);
+      console.log(`Album "${albumName}" already exists.`);
+    } catch (error: any) {
+      const createAlbumResp = await diaryClient.post(`/album/${artistName}`, {
+        name: albumName,
+      });
+      console.log(
+        `Album "${albumName}" created successfully with ID: ${createAlbumResp.data.AlbumID}`,
+      );
+    }
+  } catch (error) {
+    console.error("Error creating album:", error);
+    throw error;
+  }
+};
+
+export const createArtist = async function (
+  artistName: string,
+): Promise<boolean> {
+  try {
+    let artistResp;
+    try {
+      artistResp = await diaryClient.get(`/artist/${artistName}`);
+    } catch (error: any) {
+      if (error.response?.status === 404) {
+        const createArtistResp = await diaryClient.post(`/artist/`, {
+          name: artistName,
+        });
+        return !(createArtistResp.data.ArtistID === true);
+      } else {
+        throw error;
+      }
+    }
+    return !(artistResp.data.ArtistID === true);
+  } catch (error) {
+    console.error("Error creating artist:", error);
+    throw error;
+  }
+};
