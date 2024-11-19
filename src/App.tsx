@@ -38,6 +38,7 @@ import AdminReviews from "./pages/AdminReviews";
 import AdminReports from "./pages/AdminReports";
 import UserDiaryEntries from "./pages/UserDiaryEntries";
 import AdminEntries from "./pages/AdminEntries";
+import UserInsights from "./pages/UserInsights";
 
 // Helper function to determine if the current route is an admin route
 const isAdminRoute = (pathname: string) => {
@@ -100,6 +101,7 @@ const MainWrapper = () => {
           <Route path="review/new" element={<UserReviewCreate />} />
           <Route path="report/:reportId" element={<UserDiaryReport />} />
           <Route path="entries" element={<UserDiaryEntries />} />
+          <Route path="insights" element={<UserInsights />} />
           <Route path="settings" element={<UserSettings />} />
           <Route
             path="friends/reports/report/:reportId"

@@ -10,9 +10,11 @@ interface NavbarProps {
 const UserNavBar: React.FC<NavbarProps> = ({ userId }) => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isMusicDropdownOpen, setMusicDropdownOpen] = useState(false);
+  const [isReportsDropdownOpen, setReportsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => setDropdownOpen(!isDropdownOpen);
   const toggleMusicDropdown = () => setMusicDropdownOpen(!isMusicDropdownOpen);
+  const toggleReportsDropdown = () => setReportsDropdownOpen(!isReportsDropdownOpen);
 
   return (
     <nav className="navbar">
@@ -62,11 +64,33 @@ const UserNavBar: React.FC<NavbarProps> = ({ userId }) => {
             </div>
           )}
         </li>
-
-        <li>
-          <Link to={`/user/${userId}/reports`} className="navbar-link">
-            Reports
-          </Link>
+          {/* Reports dropdown */}
+        <li
+          className="dropdown"
+          onMouseEnter={toggleReportsDropdown}
+          onMouseLeave={toggleReportsDropdown}
+        >
+          <span>
+            <Link to={`/user/${userId}/reports`} className="navbar-link">
+              Reports
+            </Link>
+          </span>
+          {isReportsDropdownOpen && (
+            <div className="dropdown-menu">
+              <Link
+                to={`/user/${userId}/reports`}
+                className="dropdown-item"
+              >
+                All Reports
+              </Link>
+              <Link
+                to={`/user/${userId}/insights`}
+                className="dropdown-item"
+              >
+                Report Insights
+              </Link>
+            </div>
+          )}
         </li>
 
         <li>
