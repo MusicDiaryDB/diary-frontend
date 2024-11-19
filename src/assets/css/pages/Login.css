@@ -1,9 +1,95 @@
-.loginPage{
-    height: 90vh;
+.loginPage {
+    min-height: 80vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 1rem;
-}
-
+    font-family: 'Roboto', sans-serif;
+    margin-top: 10vh;
+  }
+  
+  .registration-container {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-family: 'Roboto', sans-serif;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    max-width: 400px;
+    margin-top: 10vh;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #e0eafc, #cfdef3);
+  }
+  
+  .loginPage .MuiTextField-root, .registration-container .MuiTextField-root {
+    width: 85%;
+    max-width: 350px;
+  }
+  
+  .loginPage .MuiOutlinedInput-root,
+  .registration-container .MuiOutlinedInput-root {
+    border-radius: 8px;
+    transition: border-color 0.3s;
+  }
+  
+  .loginPage .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline,
+  .registration-container .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #4b6cb7;
+  }
+  
+  .loginPage .MuiButton-contained,
+  .registration-container .MuiButton-containedPrimary {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 0.75rem;
+    border-radius: 8px;
+    transition: background 0.3s;
+    width: 85%;
+    max-width: 350px;
+  }
+  
+  .loginPage .MuiButton-contained:hover,
+  .registration-container .MuiButton-containedPrimary:hover {
+    background: linear-gradient(135deg, #5a6edc, #6b4aa5);
+  }
+  
+  .Toastify__toast--success {
+    background: #38ef7d;
+    color: white;
+  }
+  
+  .Toastify__toast--error {
+    background: #f85032;
+    color: white;
+  }
+  
+  .adminLoginButton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #f50057;
+    color: white;
+  }
+  
+  .admin-modal-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background-color: white;
+    border: 2px solid #000;
+    box-shadow: 24;
+    padding: 2rem;
+  }
+  

@@ -15,11 +15,9 @@ function Login() {
 
   const navigate = useNavigate();
 
-  // Updated Login logic
   const handleLogin = () => {
     console.log(username);
 
-    // Making a POST request to the /login endpoint
     const formData = new FormData();
     formData.append("username", username);
     formData.append("password", password);
@@ -139,7 +137,7 @@ function Login() {
   };
 
   const handleRegistration = () => {
-    navigate("/register");
+    navigate("/registration");
   };
 
   return (
@@ -176,7 +174,6 @@ function Login() {
         Register
       </Button>
 
-      {/* Button to open admin login modal */}
       <Button
         className="adminLoginButton"
         onClick={toggleAdminModal}

@@ -10,11 +10,9 @@ const UserSettings: React.FC = () => {
   const { userId } = useParams<{ userId: string }>();
   const navigate = useNavigate();
 
-  // State for old password and new password
   const [oldPassword, setOldPassword] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
 
-  // Handle updating password
   const handleUpdatePassword = async () => {
     if (!userId) {
       toast.error("Invalid user ID", {
@@ -48,7 +46,7 @@ const UserSettings: React.FC = () => {
       if (response && response.status === 200) {
         toast.success("Password updated successfully! Redirecting...", {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: 1500,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -63,16 +61,33 @@ const UserSettings: React.FC = () => {
     } catch (error: any) {
       if (error.response) {
         console.error("Error details:", error.response.data);
+        if (error.response.data.error === "Incorrect old password") {
+          toast.error("The current password is incorrect", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+          });
+        } else {
+          toast.error("Failed to update password. Please try again later.", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+          });
+        }
       } else {
         console.error("Unknown error:", error);
+        toast.error("Failed to update password. Please try again later.", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+        });
       }
-      toast.error("Failed to update password. Please try again later.", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
     }
   };
 
@@ -115,6 +130,3 @@ const UserSettings: React.FC = () => {
 };
 
 export default UserSettings;
-
-  
-
