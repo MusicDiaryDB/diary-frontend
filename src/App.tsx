@@ -10,7 +10,7 @@ import Home from "./pages/Home";
 import Users from "./pages/Users";
 import AppFooter from "./pages/components/layout/AppFooter";
 import Login from "./pages/Login";
-// import Registration from "./pages/Registration"
+import Registration from "./pages/Registration";
 import UserSettings from "./pages/UserSettings";
 import Management from "./pages/Management";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -81,8 +81,8 @@ const MainWrapper = () => {
       <Routes>
         {/* General pages */}
         <Route path="/login" element={<Login />} />
+        <Route path="/registration" element ={<Registration />} />
         
-
         {/* Landing page and fallback */}
         <Route path="/" element={<LandingPage />} />
         <Route path="*" element={<div>Page Not Found</div>} />
