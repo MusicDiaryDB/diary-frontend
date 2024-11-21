@@ -48,7 +48,7 @@ function Home() {
                                     select
                                     label="Select"
                                     defaultValue="PUBLIC"
-                                    helperText="Please select your currency"
+                                    helperText="Please select a visibility option"
                                 >
                                     {USER_VISIBILITY.map((option) => (
                                         <MenuItem
