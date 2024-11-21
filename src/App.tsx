@@ -43,10 +43,10 @@ import UserInsights from "./pages/UserInsights";
 // Helper function to determine if the current route is an admin route
 const isAdminRoute = (pathname: string) => {
   return (
-    pathname.startsWith("/admin") ||
-    pathname === "/users" ||
-    pathname === "/songs_albums" ||
-    pathname === "/reviews"
+      pathname.startsWith("/admin") ||
+      pathname === "/users" ||
+      pathname === "/songs_albums" ||
+      pathname === "/reviews"
   );
 };
 
@@ -61,13 +61,13 @@ const queryClient = new QueryClient({
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <Router>
-        <AppHeader />
-        <MainWrapper />
-        <AppFooter />
-      </Router>
-    </QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <AppHeader />
+          <MainWrapper />
+          <AppFooter />
+        </Router>
+      </QueryClientProvider>
   );
 }
 
@@ -76,66 +76,66 @@ const MainWrapper = () => {
   const admin = isAdminRoute(location.pathname);
 
   return (
-    <div>
-      {/* Conditionally render AdminNavBar or nothing */}
-      {admin ? <AdminNavBar /> : <Outlet />}
-      <Routes>
-        {/* General pages */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/registration" element ={<Registration />} />
-        
-        {/* Landing page and fallback */}
-        <Route path="/" element={<LandingPage />} />
-        <Route path="*" element={<div>Page Not Found</div>} />
+      <div>
+        {/* Conditionally render AdminNavBar or nothing */}
+        {admin ? <AdminNavBar /> : <Outlet />}
+        <Routes>
+          {/* General pages */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/registration" element ={<Registration />} />
 
-        {/* User-specific routes */}
-        <Route path="/user/:userId/*" element={<NavbarWrapper />}>
-          <Route path="home" element={<Home />} />
-          <Route path="friends" element={<FriendsList />} />
-          <Route path="reviews" element={<UserReviews />} />
-          <Route path="friends/reviews" element={<FriendReviews />} />
-          <Route path="friends/reports" element={<FriendsDiaryReports />} />
-          <Route path="friends/entries" element={<FriendsDiaryEntries />} />
-          <Route path="reports" element={<UserDiaryReports />} />
-          <Route path="reports/new" element={<UserDiaryReportCreate />} />
-          <Route path="review/new" element={<UserReviewCreate />} />
-          <Route path="report/:reportId" element={<UserDiaryReport />} />
-          <Route path="entries" element={<UserDiaryEntries />} />
-          <Route path="insights" element={<UserInsights />} />
-          <Route path="settings" element={<UserSettings />} />
-          <Route
-            path="friends/reports/report/:reportId"
-            element={<UserDiaryReport />}
-          />
+          {/* Landing page and fallback */}
+          <Route path="/" element={<LandingPage />} />
+          <Route path="*" element={<div>Page Not Found</div>} />
 
-          <Route path="music/all" element={<MusicCardsPage />} />
-          <Route path="music/songs" element={<SongsPage />} />
-          <Route path="music/albums" element={<AlbumsPage />} />
-          <Route path="music/artists" element={<ArtistsPage />} />
-        </Route>
+          {/* User-specific routes */}
+          <Route path="/user/:userId/*" element={<NavbarWrapper />}>
+            <Route path="home" element={<Home />} />
+            <Route path="friends" element={<FriendsList />} />
+            <Route path="reviews" element={<UserReviews />} />
+            <Route path="friends/reviews" element={<FriendReviews />} />
+            <Route path="friends/reports" element={<FriendsDiaryReports />} />
+            <Route path="friends/entries" element={<FriendsDiaryEntries />} />
+            <Route path="reports" element={<UserDiaryReports />} />
+            <Route path="reports/new" element={<UserDiaryReportCreate />} />
+            <Route path="review/new" element={<UserReviewCreate />} />
+            <Route path="report/:reportId" element={<UserDiaryReport />} />
+            <Route path="entries" element={<UserDiaryEntries />} />
+            <Route path="insights" element={<UserInsights />} />
+            <Route path="settings" element={<UserSettings />} />
+            <Route
+                path="friends/reports/report/:reportId"
+                element={<UserDiaryReport />}
+            />
 
-        {/* Admin-specific routes */}
-        <Route path="/manage" element={<Management />} />
-        <Route path="/admin/manage/reviews" element={<AdminReviews />} />
-        <Route path="/admin/manage/entries" element={<AdminEntries />} />
-        <Route path="/admin/manage/users" element={<Users />} />
-        <Route path="/admin/manage/reports" element={<AdminReports />} />
-        <Route path="/admin/manage/songs_albums" element={<SongsAlbums />} />
-        <Route path="/admin/info-metrics" element={<AdminMetrics />} />
-        <Route path="/admin/aggregate-metrics" element={<AdminBoard />} />
-        <Route path="/admin/aggregate-graphs" element={<Graph />} />
-      </Routes>
-    </div>
+            <Route path="music/all" element={<MusicCardsPage />} />
+            <Route path="music/songs" element={<SongsPage />} />
+            <Route path="music/albums" element={<AlbumsPage />} />
+            <Route path="music/artists" element={<ArtistsPage />} />
+          </Route>
+
+          {/* Admin-specific routes */}
+          <Route path="/manage" element={<Management />} />
+          <Route path="/admin/manage/reviews" element={<AdminReviews />} />
+          <Route path="/admin/manage/entries" element={<AdminEntries />} />
+          <Route path="/admin/manage/users" element={<Users />} />
+          <Route path="/admin/manage/reports" element={<AdminReports />} />
+          <Route path="/admin/manage/songs_albums" element={<SongsAlbums />} />
+          <Route path="/admin/info-metrics" element={<AdminMetrics />} />
+          <Route path="/admin/aggregate-metrics" element={<AdminBoard />} />
+          <Route path="/admin/aggregate-graphs" element={<Graph />} />
+        </Routes>
+      </div>
   );
 };
 
 const NavbarWrapper = () => {
   const { userId } = useParams(); // Get user id
   return (
-    <div>
-      {userId && <UserNavBar userId={userId} />}
-      <Outlet /> {/* This renders the child routes */}
-    </div>
+      <div>
+        {userId && <UserNavBar userId={userId} />}
+        <Outlet /> {/* This renders the child routes */}
+      </div>
   );
 };
 

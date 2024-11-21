@@ -166,8 +166,8 @@ function SongsAlbums() {
                         <div className="mgt-lists">
                             <p>Albums</p>
                             { !isLoadingAlbums &&
-                                albums?.map((album)=> (
-                                    <div style={{display:"flex",flexDirection:"row"}}
+                                albums?.map((album,index)=> (
+                                    <div key={index} style={{display:"flex",flexDirection:"row"}}
                                     >
                                         <p>{album.name}</p>
                                         <FontAwesomeIcon
@@ -190,9 +190,9 @@ function SongsAlbums() {
                         <div className="mgt-lists">
                             <p>Artists</p>
                             { !isLoadingArtist &&
-                                artists?.map((artist)=>(
+                                artists?.map((artist,index)=>(
                                     <div
-                                        style={{display:"flex",flexDirection:"row"}}
+                                        key={index} style={{display:"flex",flexDirection:"row"}}
                                     >
                                         <p>{artist.name}</p>
                                         <FontAwesomeIcon

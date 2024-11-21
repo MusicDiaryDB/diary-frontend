@@ -100,7 +100,7 @@ export const getAllSongsAlbumsArtists = async (tableName: string) => {
           ...songList,
           {
             songId: song.SongID,
-            releaseDate: song.ReleaseDate,
+            albumId: song.AlbumID,
             name: song.Name,
           },
         ];
@@ -157,6 +157,7 @@ export const getAlbumByName = async (albumName: string) => {
 
 export const getSongByName = async (songName: string) => {
   try {
+    console.log("here?")
     const response = await diaryClient.get(`/song/${songName}`);
     return {
       albumId: response.data.AlbumID,
