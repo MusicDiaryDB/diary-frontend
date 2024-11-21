@@ -1,9 +1,45 @@
-.loginPage{
-    height: 90vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
+.loginPageBody, .registrationPageBody {
+  background: linear-gradient(135deg, #e0eafc, #cfdef3);
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
+.loginPage {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  font-family: 'Roboto', sans-serif;
+  margin-top: 10vh;
+}
+
+.loginPage .MuiTextField-root {
+  width: 85%;
+  max-width: 350px;
+}
+
+.loginPage .MuiOutlinedInput-root {
+  border-radius: 8px;
+  transition: border-color 0.3s;
+}
+
+.loginPage .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #4b6cb7;
+}
+
+.loginPage .MuiButton-contained {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 0.75rem;
+  border-radius: 8px;
+  transition: background 0.3s;
+  width: 85%;
+  max-width: 350px;
+}
+
+.loginPage .MuiButton-contained:hover {
+  background: linear-gradient(135deg, #5a6edc, #6b4aa5);
+}

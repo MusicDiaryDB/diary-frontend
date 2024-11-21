@@ -22,6 +22,17 @@ export const fetchAvgVisibilityEntries = async () => {
   }
 };
 
+export const fetchAvgNumEntries = async () => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/avg_num_entries`);
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.log("Error getting avg visibility:", error);
+    throw error;
+  }
+};
+
 export const fetchReviewsPerSong = async () => {
   try {
     const response = await axios.get(`${API_BASE_URL}/reviews_per_song`);

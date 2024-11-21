@@ -1,0 +1,82 @@
+.userSettingsPage {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+}
+
+.userSettingsPage h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.userSettingsPage h3 {
+  color: #555;
+  margin-top: 40px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.userSettingsPage .userSettingsField {
+  margin-bottom: 20px;
+}
+
+.userSettingsPage .MuiInputLabel-root {
+  color: #666;
+}
+
+.userSettingsPage .MuiOutlinedInput-root {
+  fieldset {
+    border-color: #c4c4c4;
+  }
+  &:hover fieldset {
+    border-color: #999;
+  }
+  &.Mui-focused fieldset {
+    border-color: #3f51b5;
+  }
+}
+
+.userSettingsPage button.MuiButton-root {
+  background-color: #3f51b5;
+  color: #fff;
+  padding: 10px 0;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.userSettingsPage button.MuiButton-root:hover {
+  background-color: #334296;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.userSettingsPage button.MuiButton-root.Mui-disabled {
+  background-color: #d3d3d3;
+  color: #999;
+}
+
+.userSettingsPage .MuiFormControl-root {
+  margin-bottom: 20px;
+}
+
+.Toastify__toast {
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.Toastify__toast--success {
+  background: #4caf50 !important;
+  color: #ffffff !important;
+}
+
+.Toastify__toast--error {
+  background: #f44336 !important;
+  color: #ffffff !important;
+}

@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import '../../../assets/css/components/UserNavBar.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencilAlt, faMusic, faHome } from '@fortawesome/free-solid-svg-icons';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "../../../assets/css/components/layout/UserNavBar.css";
+import { FaCog } from "react-icons/fa";
 
 interface NavbarProps {
   userId: string;
@@ -10,66 +9,140 @@ interface NavbarProps {
 
 const UserNavBar: React.FC<NavbarProps> = ({ userId }) => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [isMusicDropdownOpen, setMusicDropdownOpen] = useState(false);
+  const [isReportsDropdownOpen, setReportsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => setDropdownOpen(!isDropdownOpen);
+  const toggleMusicDropdown = () => setMusicDropdownOpen(!isMusicDropdownOpen);
+  const toggleReportsDropdown = () => setReportsDropdownOpen(!isReportsDropdownOpen);
 
   return (
     <nav className="navbar">
       <ul>
         <li>
-          <Link to={`/${userId}/reports`} className="navbar-link">
-            Reports
+          <Link to={`/user/${userId}/home`} className="navbar-link">
+            Home
           </Link>
         </li>
-        {/* Friends dropdown */}
-        <li className="dropdown" onMouseEnter={toggleDropdown} onMouseLeave={toggleDropdown}>
-          <span className="navbar-link">Friends</span>
-          {isDropdownOpen && (
+
+        <li>
+          <Link to={`/user/${userId}/entries`} className="navbar-link">
+            Entries
+          </Link>
+        </li>
+
+        <li
+          className="dropdown"
+          onMouseEnter={toggleMusicDropdown}
+          onMouseLeave={toggleMusicDropdown}
+        >
+          <span>
+            <Link to={`/user/${userId}/music/all`} className="navbar-link">
+              All Music
+            </Link>
+          </span>
+          {isMusicDropdownOpen && (
             <div className="dropdown-menu">
-              <Link to={`/${userId}/friends/entries`} className="dropdown-item">
-                Friends' Entries
+              <Link
+                to={`/user/${userId}/music/songs`}
+                className="dropdown-item"
+              >
+                Songs
               </Link>
-              <Link to={`/${userId}/friends/reports`} className="dropdown-item">
-                Friends' Reports
+              <Link
+                to={`/user/${userId}/music/albums`}
+                className="dropdown-item"
+              >
+                Albums
               </Link>
-              <Link to={`/${userId}/friends/reviews`} className="dropdown-item">
-                Friends' Reviews
+              <Link
+                to={`/user/${userId}/music/artists`}
+                className="dropdown-item"
+              >
+                Artists
               </Link>
             </div>
           )}
         </li>
-        <li>
-          <Link to={`/${userId}/friends`} className="navbar-link">
-            Friends List
-          </Link>
+          {/* Reports dropdown */}
+        <li
+          className="dropdown"
+          onMouseEnter={toggleReportsDropdown}
+          onMouseLeave={toggleReportsDropdown}
+        >
+          <span>
+            <Link to={`/user/${userId}/reports`} className="navbar-link">
+              Reports
+            </Link>
+          </span>
+          {isReportsDropdownOpen && (
+            <div className="dropdown-menu">
+              <Link
+                to={`/user/${userId}/reports`}
+                className="dropdown-item"
+              >
+                All Reports
+              </Link>
+              <Link
+                to={`/user/${userId}/insights`}
+                className="dropdown-item"
+              >
+                Report Insights
+              </Link>
+            </div>
+          )}
         </li>
+
         <li>
-          <Link to={`/${userId}/reviews`} className="navbar-link">
+          <Link to={`/user/${userId}/reviews`} className="navbar-link">
             Reviews
           </Link>
         </li>
-      </ul>
-      <div className="action-buttons">
-        {/* Button for making a Diary Entry (left-aligned) */}
-        <Link to={`/${userId}/reports/new`} className="action-button diary-entry">
-          <FontAwesomeIcon icon={faPencilAlt} className="icon" />
-          Make a Diary Entry
-        </Link>
-        {/* Home icon link at the bottom */}
-        <div className="home-icon">
-            <Link to={`/${userId}/home`} className="navbar-link home-link">
-                <FontAwesomeIcon icon={faHome} className="icon" />
+
+        {/* Friends dropdown */}
+        <li
+          className="dropdown"
+          onMouseEnter={toggleDropdown}
+          onMouseLeave={toggleDropdown}
+        >
+          <span>
+            <Link to={`/user/${userId}/friends`} className="navbar-link">
+              Friends
             </Link>
-        </div>
-        {/* Button for making a Song Review (right-aligned) */}
-        <Link to={`/${userId}/review/new`} className="action-button song-review">
-          <FontAwesomeIcon icon={faMusic} className="icon" />
-          Make a Song Review
-        </Link>
-      </div>
-      
+          </span>
+
+          {isDropdownOpen && (
+            <div className="dropdown-menu">
+              <Link
+                to={`/user/${userId}/friends/entries`}
+                className="dropdown-item"
+              >
+                Entries
+              </Link>
+              <Link
+                to={`/user/${userId}/friends/reports`}
+                className="dropdown-item"
+              >
+                Reports
+              </Link>
+              <Link
+                to={`/user/${userId}/friends/reviews`}
+                className="dropdown-item"
+              >
+                Reviews
+              </Link>
+            </div>
+          )}
+        </li>
+        <li className="navbar-settings">
+          <Link to={`/user/${userId}/settings`} className="navbar-link">
+            <FaCog size={20} />
+          </Link>
+        </li>
+      </ul>
     </nav>
   );
 };
 
 export default UserNavBar;
+

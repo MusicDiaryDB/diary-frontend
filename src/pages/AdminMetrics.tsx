@@ -103,7 +103,13 @@ function AdminMetrics() {
     return () => clearInterval(intervalId);
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div className="loading">
+        <h2>Loading...</h2>
+        <div className="loading-text">This can take some time.</div>
+      </div>
+    );
   if (error) return <div>An error occured: {error}</div>;
 
   return (

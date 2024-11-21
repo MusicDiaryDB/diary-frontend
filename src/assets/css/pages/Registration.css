@@ -1,0 +1,66 @@
+.registration-page-body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #e0eafc, #cfdef3);
+  }
+  
+  .registration-container {
+    font-family: 'Roboto', sans-serif;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .registration-container h3 {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #4b6cb7;
+    margin: 0;
+  }
+  
+  .registration-container .MuiTextField-root {
+    width: 100%;
+  }
+  
+  .registration-container .MuiOutlinedInput-root {
+    border-radius: 8px;
+    transition: border-color 0.3s;
+  }
+  
+  .registration-container .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #4b6cb7;
+  }
+  
+  .registration-container .MuiButton-containedPrimary {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 0.75rem;
+    border-radius: 8px;
+    transition: background 0.3s;
+  }
+  
+  .registration-container .MuiButton-containedPrimary:hover {
+    background: linear-gradient(135deg, #5a6edc, #6b4aa5);
+  }
+  
+  .Toastify__toast--success {
+    background: #38ef7d;
+    color: white;
+  }
+  
+  .Toastify__toast--error {
+    background: #f85032;
+    color: white;
+  }
+  
