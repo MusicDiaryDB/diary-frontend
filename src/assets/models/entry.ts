@@ -13,7 +13,7 @@ export interface EntrySongs{
 
 export interface Song{
     songId: number;
-    releaseDate: string;
+    albumId: string;
     name: string;
     // artist:string;
     // album: string

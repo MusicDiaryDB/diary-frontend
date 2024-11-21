@@ -1,22 +1,74 @@
 import {Link} from 'react-router-dom';
-import {Button} from '@mui/material';
+import {Button, Card, CardContent, Typography} from '@mui/material';
 import "../assets/css/pages/DiaryEntries.css";
-import { Entry } from '../assets/models/entry';
-import { useState } from 'react';
+import {Album, Artist, Entry, Song} from '../assets/models/entry';
+import {useQuery, useQueryClient} from '@tanstack/react-query';
+import {getUserDiaryEntries} from '../assets/services/diary/userDiaryEntries';
+import {UserSessionKey} from '../assets/services/diary/user';
+import {getAllSongsAlbumsArtists, getSongByName} from '../assets/services/diary/song';
 
-function DiaryEntries(){
+function getSong(entrySongId: any, songs: Song[]) {
+    if (songs) {
+        for (let i = 0; i < songs.length; i++) {
+            if (songs[i].songId === entrySongId)
+                return songs[i]
+        }
+    }
+    return {
+        songId: "",
+        albumId: "",
+        name: ""
+    }
+}
 
-    const testEntries: Entry[] = [
-        {entryId: 1, date: "2022-11-12", description: "desc", visibility: "PRIVATE", userId: 1},
-        {entryId: 1, date: "2022-11-12", description: "desc", visibility: "PRIVATE", userId: 1},
-        {entryId: 1, date: "2022-11-12", description: "desc", visibility: "PRIVATE", userId: 1}
-    ];
+function getArtistName(entrySongID: any, songs: Song[], artists: Artist[], albums: Album[]) {
+    const song = getSong(entrySongID, songs)
+    console.log(albums)
+    if (albums) {
+        console.log(1)
+        for (let i = 0; i < albums.length; i++) {
+            if (albums[i].albumId === song.albumId){
+                console.log(2)
+                if (artists) {
+                    for (let j = 0; j < artists.length; j++) {
+                        if (artists[j].artistId === albums[i].artistId)
+                            return artists[j].name
+                    }
+                }
+            }
+        }
+    }
+    return "unknown"
+}
 
-    const [hideSongDetailsDisplay,setHideSongDetailsDisplay] = useState("none")
-    const [songDetailsDisplayText,setSongDetailsDisplayText] = useState("More Text")
+function DiaryEntries() {
+
+    const queryClient = useQueryClient()
+    const userId = JSON.parse(sessionStorage.getItem(UserSessionKey) || "UserID : ''").UserID
+
+    const {data: entries, isLoading: isLoadingEntries} = useQuery({
+        queryKey: ["entries", userId],
+        queryFn: () => getUserDiaryEntries(parseInt(userId), null, null)
+    })
+
+    const {data: songs, isLoading: isLoadingSongs} = useQuery({
+        queryKey: ["songs"],
+        queryFn: () => getAllSongsAlbumsArtists("song")
+    })
+
+    const {data: albums, isLoading: isLoadingAlbums} = useQuery({
+        queryKey: ["albums"],
+        queryFn: () => getAllSongsAlbumsArtists("album")
+    })
+
+    const {data: artists, isLoading: isLoadingArtist} = useQuery({
+        queryKey: ["artists"],
+        queryFn: () => getAllSongsAlbumsArtists("artist")
+    })
 
 
-    return(
+    // @ts-ignore
+    return (
         <div className="viewEntries">
 
             <Link to="/home">
@@ -24,46 +76,41 @@ function DiaryEntries(){
             </Link>
 
             <h2>My Entries</h2>
+            {
+                // @ts-ignore
+                !(isLoadingEntries && isLoadingSongs && isLoadingAlbums && isLoadingArtist) &&
+                <div
+                    style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "space-evenly"
+                    }}
+                >
+                    {
+                        // @ts-ignore
+                        entries.map((entry, index) => (
+                            <Card sx={{width: 345}} key={index}>
+                                <CardContent>
+                                    <Typography gutterBottom variant="h5" component="div">
+                                        {
+                                            //@ts-ignore
+                                            getSong(entry.SongID, songs).name
+                                        }
+                                    </Typography>
 
-            {testEntries.map((entry,index) => (
-                <div className="entryListing" key={index}>
-                    <div className="entryTop">
-                        <p>{entry.date}</p>
-                        <p>{entry.visibility}</p>
-                    </div>
-
-                    <div className="entryBottom">
-                        {/*{getEntrySongs(entry.entryId).map(*/}
-                        {/*    (song: Song, index: number) => (*/}
-                        {/*        <div key={index}>*/}
-                        {/*            <p>{song.name}</p>*/}
-                        {/*            <div className="songDetails" style={{display:hideSongDetailsDisplay}}>*/}
-                        {/*                <p>Author: {song.artist}</p>*/}
-                        {/*                <p>Album: {song.album}</p>*/}
-                        {/*            </div>*/}
-                        {/*        </div>*/}
-                        {/*    ))}*/}
-                        <p style={{
-                            fontWeight: "bold",
-                            textDecoration:"underline",
-                            cursor:"pointer"
-                        }}
-                           onClick={() => {
-                               if (hideSongDetailsDisplay === "none"){
-                                   setHideSongDetailsDisplay("")
-                                   setSongDetailsDisplayText("Less details")
-                               } else {
-                                   setHideSongDetailsDisplay("none")
-                                   setSongDetailsDisplayText("More details")
-                               }
-                           }}
-                        >
-                            {songDetailsDisplayText}
-                        </p>
-                    </div>
-
+                                    <Typography variant="body2" sx={{color: "text.secondary"}}>
+                                        {
+                                            //@ts-ignore
+                                            "by " + getArtistName(entry.SongID, artists, albums)
+                                        }
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        ))}
                 </div>
-            ))}
+
+            }
+
 
         </div>
     )

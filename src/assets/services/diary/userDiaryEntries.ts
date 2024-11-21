@@ -2,7 +2,7 @@ import {PossibleSong} from "../../models/entry";
 import {diaryClient} from "../axios";
 import {getSongDetials} from "../genius";
 import {addAlbum, addArtist, addSong, getAlbumByName, getArtistbyName, getSongByName} from "./song";
-import { getUserByUsername } from "./user";
+import {UserSessionKey } from "./user";
 
 const getAllSongDetails = async (possibleSongs: PossibleSong[]) => {
     let deets: any[] = []
@@ -96,9 +96,9 @@ export const makeEntries = async (
     description: string,
     visibility: string
 ) => {
-    let username = sessionStorage.getItem("username")
-    // @ts-ignore
-    const user = await getUserByUsername(username)
+    
+    // const userId = getUserId()
+    const user = JSON.parse(sessionStorage.getItem(UserSessionKey)||"")
 
     //get all song details from genius
     getAllSongDetails(possibleSongs)

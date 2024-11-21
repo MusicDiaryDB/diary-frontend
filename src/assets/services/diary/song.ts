@@ -100,7 +100,7 @@ export const getAllSongsAlbumsArtists = async (tableName: string) => {
           ...songList,
           {
             songId: song.SongID,
-            releaseDate: song.ReleaseDate,
+            albumId: song.AlbumID,
             name: song.Name,
           },
         ];
