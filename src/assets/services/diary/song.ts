@@ -157,6 +157,7 @@ export const getAlbumByName = async (albumName: string) => {
 
 export const getSongByName = async (songName: string) => {
   try {
+    console.log("here?")
     const response = await diaryClient.get(`/song/${songName}`);
     return {
       albumId: response.data.AlbumID,
