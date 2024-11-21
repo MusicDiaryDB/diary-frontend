@@ -22,6 +22,8 @@ function Home() {
     const [entryDescription, setEntryDescription] = useState<string>("")
     const [entryVisibility, setEntryVisibility] = useState<string>("PUBLIC")
 
+    const userId: string = sessionStorage.getItem("user_id") || ""
+
     return (
         <div className="homePage">
 
@@ -138,6 +140,10 @@ function Home() {
                                 onClick={() => {
                                     // console.log(possibleEntries)
                                     makeEntries(possibleEntries, entryDescription, entryVisibility)
+                                        .then(()=>{
+                                            setPossibleEntries([])
+                                            navigate(`/user/${userId}/entries`)
+                                        })
                                 }}
                         >Confirm Diary Entry</Button>
                     </div>

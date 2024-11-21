@@ -2,7 +2,6 @@ import {PossibleSong} from "../../models/entry";
 import {diaryClient} from "../axios";
 import {getSongDetials} from "../genius";
 import {addAlbum, addArtist, addSong, getAlbumByName, getArtistbyName, getSongByName} from "./song";
-import {UserSessionKey } from "./user";
 
 const getAllSongDetails = async (possibleSongs: PossibleSong[]) => {
     let deets: any[] = []
@@ -97,8 +96,7 @@ export const makeEntries = async (
     visibility: string
 ) => {
     
-    // const userId = getUserId()
-    const user = JSON.parse(sessionStorage.getItem(UserSessionKey)||"")
+    const userId: string = sessionStorage.getItem("user_id") || ""
 
     //get all song details from genius
     getAllSongDetails(possibleSongs)
@@ -117,7 +115,7 @@ export const makeEntries = async (
                                 form.append("description", description)
                                 form.append("visibility", visibility)
                                 // @ts-ignore
-                                form.append("userId", user.UserID)
+                                form.append("userId", userId)
                                 form.append("songId", songIds[i])
                                 // const response =
                                     await diaryClient.post("/entry", form)
